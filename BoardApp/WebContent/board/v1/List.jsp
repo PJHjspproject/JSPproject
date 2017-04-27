@@ -1,3 +1,6 @@
+<%@page import="com.bean.board.BoardDto"%>
+<%@page import="java.util.Vector"%>
+<%@page import="com.bean.board.BoardDao"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <HTML>
 <link href="style.css" rel="stylesheet" type="text/css">
@@ -14,6 +17,31 @@
 <BODY>
 <center><br>
 <h2>JSP Board</h2>
+
+<%!
+	String keyWord="", keyField="";
+%>
+<%
+	//현재 List.jsp페이지의 검색란에 검색어를 입력했다면 한글처리
+	request.setCharacterEncoding("UTF-8");
+	//만약에 검색어가 입력되었다면
+	if(request.getParameter("keyWord") != null){
+		//검색 기준값과 검색어 저장 저장
+		keyField = request.getParameter("keyField");
+		keyWord = request.getParameter("keyWord");
+	}
+	//DB작업을위한 객체 생성
+	BoardDao dao = new BoardDao();
+	//게시판의 전체글목록 리스트를 뿌려주는 DB에 select작업을 위한 dao클래스의 메소드 호출
+	//getBoardLiat메소드 호출시
+	//검색기준값과 검색어를 넘겨주어 결과적으로 백터에 전체글들을 담아서
+	//백터 자체에 리턴받기
+	Vector v = dao.getBoardList(keyField, keyWord);
+	
+%>
+
+
+
 
 <table align=center border=0 width=80%>
 <tr>
@@ -34,12 +62,31 @@
 				<td> 날짜 </td>
 				<td> 조회수 </td>
 			</tr>
+
+<% 
+				for(int i=0;i<v.size();i++){
+ 				BoardDto dto = (BoardDto)v.get(i);
+%>
+<tr align=center height=120%>
+				<td><%=dto.getNum() %></td>
+				<td><%=dto.getSubject() %></td>
+				<td><%=dto.getName() %></td>
+				<td><%=dto.getRegdate() %></td>
+				<td><%=dto.getCount() %></td>
+			</tr>
+			
+			<%} %>
+
 		</table>
 	</td>
 </tr>
 <tr>
+
+	
 	<td><BR><BR></td>
+
 </tr>
+
 <tr>
 	<td align="left">Go to Page </td>
 	<td align=right>
