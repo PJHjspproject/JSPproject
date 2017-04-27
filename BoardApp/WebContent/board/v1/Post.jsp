@@ -45,7 +45,7 @@
      <td colspan=2><hr size=1></td>
     </tr>
     <tr>
-     <td><input type=submit value="등록" >&nbsp;&nbsp;
+     <td><input type=submit value="등록" onclick="">&nbsp;&nbsp;
          <input type=reset value="다시쓰기">&nbsp;&nbsp;
      </td>
     </tr> 
@@ -55,5 +55,6 @@
 </form> 
 </table>
 </center>
+
 </body>
 </html>

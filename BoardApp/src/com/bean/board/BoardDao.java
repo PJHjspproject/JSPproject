@@ -3,6 +3,9 @@ package com.bean.board;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.naming.Context;
@@ -44,7 +47,37 @@ public class BoardDao implements IBoardDao {
 
 	}
 
-	public void insertBoard(BoardDto dto) {	}
+	public void insertBoard(BoardDto dto) {
+		
+		String sql = "insert into tblboard(name,email,homepage,subject,content,pass,regdate)"
+				+"values(?,?,?,?,?,?,now())";
+		
+		
+	
+		try{
+			
+			
+			con = ds.getConnection();
+			pstmt =con.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getEmail());
+			pstmt.setString(3, dto.getHomepage());
+			pstmt.setString(4, dto.getSubject());
+			pstmt.setString(5, dto.getContent());
+			pstmt.setString(6, dto.getPass());
+			
+			pstmt.executeUpdate();
+			
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			freeResource();
+		}
+		
+		
+	}
 	//DB에있는 글들을 select해서 가져와서 전체 글리스트를 뿌려주기 위한 메소드 List.jsp페이지에서 사용하는 메소드
 	@Override
 	public Vector getBoardList(String keyField, String keyWord) {

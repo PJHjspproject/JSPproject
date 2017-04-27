@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.bean.board.BoardDto"%>
 <%@page import="java.util.Vector"%>
 <%@page import="com.bean.board.BoardDao"%>
@@ -37,6 +38,10 @@
 	//검색기준값과 검색어를 넘겨주어 결과적으로 백터에 전체글들을 담아서
 	//백터 자체에 리턴받기
 	Vector v = dao.getBoardList(keyField, keyWord);
+	//날짜형식을 지정하는 객체
+	SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+	
+	
 	
 %>
 
@@ -63,19 +68,27 @@
 				<td> 조회수 </td>
 			</tr>
 
-<% 
-				for(int i=0;i<v.size();i++){
- 				BoardDto dto = (BoardDto)v.get(i);
-%>
+
 <tr align=center height=120%>
+<%if(v.isEmpty()){
+%>
+
+<td colspan="5">글이없습니다.</td>
+<% 
+}else{
+
+	for(int i=0;i<v.size();i++){
+		BoardDto dto = (BoardDto)v.get(i);
+%>
+			<tr align="center">
 				<td><%=dto.getNum() %></td>
 				<td><%=dto.getSubject() %></td>
 				<td><%=dto.getName() %></td>
-				<td><%=dto.getRegdate() %></td>
+				<td><%=s.format(dto.getRegdate())%></td>
 				<td><%=dto.getCount() %></td>
 			</tr>
 			
-			<%} %>
+			<% }} %>
 
 		</table>
 	</td>
