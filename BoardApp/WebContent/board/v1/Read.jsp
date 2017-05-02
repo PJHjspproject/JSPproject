@@ -4,6 +4,14 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
+<%
+
+	request.setCharacterEncoding("UTF-8");
+
+	out.println(request.getParameter("num")+","+request.getParameter("keyField")+","
+				+request.getParameter("keyWord"));
+%>
+
 <body>
 <br><br>
 <table align=center width=70% border=0 cellspacing=3 cellpadding=0>

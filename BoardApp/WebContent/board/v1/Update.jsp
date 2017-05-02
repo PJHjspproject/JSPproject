@@ -1,4 +1,15 @@
+<%@page import="com.bean.board.BoardDto"%>
+<%@page import="com.bean.board.BoardDao"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
+
+<%
+	BoardDao dao = new BoardDao();
+
+	int num = Integer.parseInt(request.getParameter("no"));
+	
+	BoardDto dto = dao.getBoard(num);
+
+%>
 <html>
 <head> <title>JSPBoard</title>
 <link href="style.css" rel="stylesheet" type="text/css">
@@ -23,6 +34,7 @@
 </table>
 
 <form name=form method=post action="UpdateProc.jsp" >
+	<input type="hidden" name="num" value="">
 <table width=70% cellspacing=0 cellpadding=7>
  <tr>
   <td align=center>

@@ -12,6 +12,10 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.sun.istack.internal.Pool;
+
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+
 public class BoardDao implements IBoardDao {
 
 	// DB연결 삼총사
@@ -49,14 +53,11 @@ public class BoardDao implements IBoardDao {
 
 	public void insertBoard(BoardDto dto) {
 		
-		String sql = "insert into tblboard(name,email,homepage,subject,content,pass,regdate)"
-				+"values(?,?,?,?,?,?,now())";
+		String sql = "insert into tblboard(name,email,homepage,subject,content,pass,ip,regdate,count,pos,depth)"
+				+"values(?,?,?,?,?,?,?,now(),0,0,0)";
 		
-		
-	
 		try{
-			
-			
+	
 			con = ds.getConnection();
 			pstmt =con.prepareStatement(sql);
 			pstmt.setString(1, dto.getName());
@@ -65,7 +66,7 @@ public class BoardDao implements IBoardDao {
 			pstmt.setString(4, dto.getSubject());
 			pstmt.setString(5, dto.getContent());
 			pstmt.setString(6, dto.getPass());
-			
+			pstmt.setString(7, dto.getIp());
 			pstmt.executeUpdate();
 			
 			
@@ -141,7 +142,30 @@ public class BoardDao implements IBoardDao {
 	@Override
 	public BoardDto getBoard(int num) {
 		// TODO Auto-generated method stub
-		return null;
+		BoardDto dto = new BoardDto();
+		String sql = "select name,email,subject,content,pass" 
+				+"from tblboard where no=?";
+				
+		try{
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				dto.setName(rs.getString("name"));
+				dto.setEmail(rs.getString("email"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
+				dto.setPass(rs.getString("pass"));
+				
+			}
+		}catch(Exception e){
+			System.out.println("getBoard메소드에서 오류 : "+e);
+		}finally{
+			freeResource();
+		}
+		return dto;
 	}
 
 	@Override

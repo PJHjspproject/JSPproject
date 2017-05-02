@@ -14,6 +14,14 @@
 		}
 		document.search.submit();
 	}
+	function fnlist(){
+		document.list.action = "List.jsp";
+		document.list.submit();
+	}
+	function fnRead(num) {
+		document.read.num.value = num;
+		document.read.submit();
+	}
 </script>
 <BODY>
 <center><br>
@@ -31,6 +39,18 @@
 		keyField = request.getParameter("keyField");
 		keyWord = request.getParameter("keyWord");
 	}
+	//[처음으로]링크를 클릭했을때 (List.jsp가 재요청 됬을시) 
+	if(request.getParameter("reload")!=null){
+		//만약 List.jsp페이지로 다시 요청받은 값이 true와 같을때..
+		if(request.getParameter("reload").equals("true")){
+		
+			keyWord ="";
+		}
+		
+	}
+	
+	
+	
 	//DB작업을위한 객체 생성
 	BoardDao dao = new BoardDao();
 	//게시판의 전체글목록 리스트를 뿌려주는 DB에 select작업을 위한 dao클래스의 메소드 호출
@@ -62,6 +82,7 @@
 		<table border=0 width=100% cellpadding=2 cellspacing=0>
 			<tr align=center bgcolor=#D0D0D0 height=120%>
 				<td> 번호 </td>
+				
 				<td> 제목 </td>
 				<td> 이름 </td>
 				<td> 날짜 </td>
@@ -82,7 +103,8 @@
 %>
 			<tr align="center">
 				<td><%=dto.getNum() %></td>
-				<td><%=dto.getSubject() %></td>
+				<%--게시판 글 리스트 중에서 제목을 클릭할때 함수 호출하여  from태그 실행 --%>
+				<td><a href="#" onclick="fnRead('<%=dto.getNum() %>')"><%=dto.getSubject() %></a></td>
 				<td><%=dto.getName() %></td>
 				<td><%=s.format(dto.getRegdate())%></td>
 				<td><%=dto.getCount() %></td>
@@ -104,7 +126,7 @@
 	<td align="left">Go to Page </td>
 	<td align=right>
 		<a href="Post.jsp">[글쓰기]</a>
-		<a href="javascript:list()">[처음으로]</a>
+		<a href="javascript:fnlist()">[처음으로]</a>
 	</td>
 </tr>
 </table>
@@ -126,6 +148,16 @@
 	</tr>
 	</table>
 </form>
-</center>	
+</center>
+<%-- 현재 List.jsp페이지가 리로드 하는지 안하는 구별하기 위한 값 true를 다시 List.jsp로--%>
+<form name="list" method="post">
+	<input type="hidden" name="reload" value="true">
+</form>
+<%--글제목 클릭시 Read.jsp로 선택한 글번호 글을 선택하기위해 검색한 검색기준값 검색한 검색어 --%>
+<form action="Read.jsp" name="read" method="post">
+	<input type="hidden" name="num">
+	<input type="hidden" name="keyField" value="<%=keyField%>">
+	<input type="hidden" name="keyWord" value="<%=keyWord%>">
+</form>
 </BODY>
 </HTML>
