@@ -143,11 +143,18 @@ public class BoardDao implements IBoardDao {
 	public BoardDto getBoard(int num) {
 		// TODO Auto-generated method stub
 		BoardDto dto = new BoardDto();
-		String sql = "select name,email,subject,content,pass" 
-				+"from tblboard where no=?";
-				
+
 		try{
+			String sql= "update tblboard set count=count+1 where num = ?";
 			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			/*카운트 올리는 쪽*/
+					
+			sql = "select * from tblboard where num = ?";
+			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -155,13 +162,21 @@ public class BoardDao implements IBoardDao {
 			if(rs.next()){
 				dto.setName(rs.getString("name"));
 				dto.setEmail(rs.getString("email"));
+				dto.setHomepage(rs.getString("homapage"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
 				dto.setPass(rs.getString("pass"));
+				dto.setRegdate(rs.getTimestamp("regdate"));
+				dto.setCount(rs.getInt("count"));
+				dto.setIp(rs.getString("ip"));
+				dto.setPos(rs.getInt("pos"));
+				dto.setDepth(rs.getInt("depth"));
+				
 				
 			}
 		}catch(Exception e){
 			System.out.println("getBoard메소드에서 오류 : "+e);
+			e.printStackTrace();
 		}finally{
 			freeResource();
 		}
