@@ -19,6 +19,7 @@
 		document.list.submit();
 	}
 	function fnRead(num) {
+		
 		document.read.num.value = num;
 		document.read.submit();
 	}
@@ -115,6 +116,7 @@
 		</table>
 	</td>
 </tr>
+
 <tr>
 
 	

@@ -129,13 +129,44 @@ public class BoardDao implements IBoardDao {
 
 	@Override
 	public void updateBoard(BoardDto dto) {
-		// TODO Auto-generated method stub
+		String sql = "update tblboard set name=?,email=?,subject=?,"
+				+"content=? where num = ?";
+		try{
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getEmail());
+			pstmt.setString(3, dto.getSubject());
+			pstmt.setString(4, dto.getContent());
+			pstmt.setInt(5, dto.getNum());
+			pstmt.executeUpdate();
+			
+		}catch(Exception e){
+			System.out.println("updateBoard 메서드 에러 : "+e);
+		}finally{
+			freeResource();
+		}
 
 	}
 
 	@Override
-	public void deleteBoard(int no) {
+	public void deleteBoard(int num) {
 		// TODO Auto-generated method stub
+		
+		String sql = "delete from tblboard where num=?";
+		
+		try{
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			freeResource();
+		}
+		
 
 	}
 
@@ -162,7 +193,7 @@ public class BoardDao implements IBoardDao {
 			if(rs.next()){
 				dto.setName(rs.getString("name"));
 				dto.setEmail(rs.getString("email"));
-				dto.setHomepage(rs.getString("homapage"));
+				dto.setHomepage(rs.getString("homepage"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
 				dto.setPass(rs.getString("pass"));
