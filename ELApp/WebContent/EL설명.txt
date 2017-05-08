@@ -1,0 +1,59 @@
+EL(Expression Langage) : 표현식 언어
+
+1. 목적
+	-out.println, <%= a %> 같은 자바코드를 더 간편하게 사용하기위한 기능을 지원함
+	
+2. 문법
+
+	- ${식 or 변수}
+	
+	- 예 ) <%= cnt + 1%> -> ${cnt +1} 
+	
+3. 내장객체의 종류들
+
+	- requestScope ,sessionScope , pageScope, applicationScope : 값을 영역에 저장하는 용도
+	
+		저장방법 -> setAttribute() 메소드 사용
+		저장한 값 꺼내 쓰는 방법 -> ${}EL 태그 사용 
+		
+	- param , paramValues 
+	
+	- header, headerValues
+	
+	- cookle
+	
+	-initParam
+	
+	-pageContext 
+4. 예제 스토리
+	1 - 클라이언트가 서블릿에 요청
+	2 - 서블릿에서 응답할 데이터를 requestScope객체 영역에 담아서 AttributeㄹTest.jsp페이지에 다시 용청
+	3 - AttributeTest.jsp페이지에서 requestScope객체 영영에 담긴 데이터를 EL태그로 꺼내에서 출력
+	
+	클라이언트 --->서블릿(응답데이터 생성 - request영역에 담는다) -> AttributeTest.jsp
+	
+	순서1)패키지명 myservlet 에 TestServlst.java 파일생성
+	순서2)web.xml 만들기 ?? -> 클라이언트가 생성한 TestServlet.java(서블릿)에 요청하기위한 가상경로 지정하기 위함
+	순서3) 실제 응답할 페이지 인 AttributeTest.jsp 페이지 만들기
+	
+	결론 : EL에서 제공되는 내장객체들(Scope관련 객체)들을 통해 얻어온 데이터를 꺼내 쓰기위해 EL태그를 사용함.
+	
+5. 예제 스토리 2
+
+	1- a.html 페이지에서 b.jsp페이지로 어떤값을 요청하게되면 어떤값은 request영역에 담아서 request영역 자체를 전달했다
+		하지만 EL에서 제공되는 내자객체중 ...  param객체가 request객체와 같은 역할을 함
+		
+	순서1) 요청할페이지 작성 ->paramTest.html
+	순서2) 요청받아 처리할 페이지 작성 -> paramTest.jsp
+	
+6. 예제 스토리 3
+
+	1- EL에서 제공하는 내장객체 중에서(header관련 객체)
+	
+	순서1)header.jsp페이지 만들기
+7. 예제 스토리 4
+
+	1- EL에서 제공되는 내장객체 (cookie 객체)
+	
+	순서1)쿠키 저장 : cookie_save.jsp
+	순서2)쿠키 꺼내오기 : cookie_restore.jsp

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>ELApp</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>test</servlet-name><!-- 가상주소와 실제주소를 맵핑시켜주기 위한 별명 -->
+  	<servlet-class>myservlet.TestServlet</servlet-class><!-- 실제 주소 경로-->
+  </servlet>
+  
+  <servlet-mapping>
+  		<servlet-name>test</servlet-name><!-- 가상주소와 실제주소를 맵핑시켜주기 위한 별명 -->
+  		<url-pattern>/test</url-pattern> <!-- 가상경로 -->
+  </servlet-mapping>
+ 
+</web-app>

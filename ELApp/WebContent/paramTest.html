@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="paramTest.jsp" method="post">
+	name : <input type="text" name="name"/><br/><br/>
+	ID : <input type="text" name="id"/><br/><br/>
+	첫번쨰 음식  : <input type="text" name="food"/><br/><br/>
+	두번쨰 음식  : <input type="text" name="food"/><br/><br/>
+	<input type="checkbox" name="hoddy" value="등산">등산<br/>
+	<input type="checkbox" name="hoddy" value="여행">여행<br/>
+	<input type="checkbox" name="hoddy" value="독서">독서<br/>
+	<input type="submit" value="전송"/>
+	
+
+</form>
+결론 : <br/>
+input 태그의 type이 text일 경우 입력하지 않으면 빈 공백이 전송되지만<br/>
+input 태그의 type이 checkbox,radio 일 경우 null값이 전송<br/>
+전달받는 페이지에서 자바코드에서 처리할 경우 예외가 발생.<br/>
+그러나 EL언어의 paramValue객체를 사용하여 배열을 받아 출력하면 예외처리 동시에... 빈 공백으로 처리 할수 있다.
+
+</body>
+</html>
