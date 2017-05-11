@@ -57,3 +57,28 @@ EL(Expression Langage) : 표현식 언어
 	
 	순서1)쿠키 저장 : cookie_save.jsp
 	순서2)쿠키 꺼내오기 : cookie_restore.jsp
+	
+8.	EL로 배열이나 컬렉션에 담긴 데이터를 꺼내서 사용.
+
+	순서1) myservlet패치키에 TestServlet2.java파일(서블릿) 만들기
+	순서2) web.xml에 소스추가
+	순서3) arrayCollection.jsp 만들기
+	
+9. EL에서 bean property 사용하기
+
+	순서1) mybean패키지에 TestBean 자바빈 클래스 만들기
+	순서2) BeanTest.jsp 페이지 만들기
+	순서3) BeanTest.jsp 페이지 실행
+	순서4) mybean패키지에 Dog자바빈클래스 생성
+	순서5) mybean패키지에 Person자바빈클래스 생성
+	순서6) myservlet패키지에 TestServlet3.java파일(서블릿) 만들기
+	순서7) web.xml에 서블릿 설정
+	순서8)BeanTest.jsp 페이지 소스 추가
+	
+10. EL에서 제공되는 연산자들
+ &&(and) , ||(or) , !(not) %(mod) /(div) +,-,
+ >(gt 크다) <(lt 작다) >=(ge) , <=(le) ==(eq) !=(ne)
+ ${emphy 변수명} : 변수안에 값유무 판단 true false 반환
+ 
+ 	순서1) operatorTest1.jsp
+ 	순서2) operatorTest1.jsp
