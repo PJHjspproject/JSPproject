@@ -37,10 +37,10 @@
 <!-- 로고들어가는 곳 -->
 <nav id="top_menu">
 <ul>
-	<li><a href="index.html">HOME</a></li>
-	<li><a href="company/welcome.html">COMPANY</a></li>
+	<li><a href="index.jsp">HOME</a></li>
+	<li><a href="company/welcome.jsp">COMPANY</a></li>
 	<li><a href="#">SOLUTIONS</a></li>
-	<li><a href="center/notice.html">CUSTOMER CENTER</a></li>
+	<li><a href="center/notice.jsp">CUSTOMER CENTER</a></li>
 	<li><a href="#">CONTACT US</a></li>
 </ul>
 </nav>
