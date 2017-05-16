@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,67 +23,83 @@
  <![endif]-->
 </head>
 <body>
-<div id="wrap">
-<!-- 헤더들어가는 곳 -->
-<jsp:include page="../inc/top.jsp"/>
-<!-- 헤더들어가는 곳 -->
+	<div id="wrap">
+		<!-- 헤더들어가는 곳 -->
+		<jsp:include page="../inc/top.jsp" />
+		<!-- 헤더들어가는 곳 -->
 
-<!-- 본문들어가는 곳 -->
-<!-- 본문메인이미지 -->
-<div id="sub_img_member"></div>
-<!-- 본문메인이미지 -->
-<!-- 왼쪽메뉴 -->
-<nav id="sub_menu">
-<ul>
-<li><a href="#">Join us</a></li>
-<li><a href="#">Privacy policy</a></li>
-</ul>
-</nav>
-<!-- 왼쪽메뉴 -->
-<!-- 본문내용 -->
-<article>
-<h1>Join Us</h1>
-<form action="" id="join">
-<fieldset>
-<legend>Basic Info</legend>
-<label>User ID</label>
-<input type="text" name="id" class="id">
-<input type="button" value="dup. check" class="dup"><br>
-<label>Password</label>
-<input type="password" name="pass"><br>
-<label>Retype Password</label>
-<input type="password" name="pass2"><br>
-<label>Name</label>
-<input type="text" name="name"><br>
-<label>E-Mail</label>
-<input type="email" name="email"><br>
-<label>Retype E-Mail</label>
-<input type="email" name="email2"><br>
-</fieldset>
+		<!-- 본문들어가는 곳 -->
+		<!-- 본문메인이미지 -->
+		<div id="sub_img_member"></div>
+		<!-- 본문메인이미지 -->
+		<!-- 왼쪽메뉴 -->
+		<nav id="sub_menu">
+			<ul>
+				<li><a href="#">Join us</a></li>
+				<li><a href="#">Privacy policy</a></li>
+			</ul>
+		</nav>
+		<!-- 왼쪽메뉴 -->
+		<!-- 본문내용 -->
+		<article>
+			<h1>Join Us</h1>
+			<form action="joinPro.jsp" id="join" method="post" name="fr">
+				<fieldset>
+					<legend>Basic Info</legend>
+					<label>아이디</label> 
+					<input type="text" name="id" class="id">
+					<input type="button" value="아이디중복체크" class="dup" onclick="winopen()"><br>
+					
+					<label>비밀번호</label> 
+					<input type="password" name="passwd"><br>
+					
+					<label>비밀번호 확인</label> 
+					<input type="password" name="passwd2"><br>
+					
+					<label>이름</label> 
+					<input type="text" name="name"><br>
+					
+					<label>이메일</label> 
+					<input type="email" name="email"><br>
+					
+					<label>이메일 확인</label> 
+					<input type="email" name="email2"><br>
+				</fieldset>
 
-<fieldset>
-<legend>Optional</legend>
-<label>Address</label>
-<input type="text" name="address"><br>
-<label>Phone Number</label>
-<input type="text" name="phone"><br>
-<label>Mobile Phone Number</label>
-<input type="text" name="mobile"><br>
-</fieldset>
-<div class="clear"></div>
-<div id="buttons">
-<input type="button" value="Submit" class="submit">
-<input type="button" value="Cancel" class="cancel">
-</div>
-</form>
-</article>
-<!-- 본문내용 -->
-<!-- 본문들어가는 곳 -->
+				<fieldset>
+					<legend>선택사항</legend>
+					<label>주소</label> 
+					<input type="text" name="address"><br>
+					
+					<label>집 번호</label> 
+					<input type="text" name="tel"><br>
+					
+					<label>휴대폰번호</label> 
+					<input type="text" name="mtel"><br>
+					
+					<label>나이</label> 
+					<input type="text" name="age"><br>
+					
+					<label>성별</label>
+					<input type="radio" name="gender" value="남자" >남
+					<input type="radio" name="gender" value="여자" >여<br/>
+					
+					
+				</fieldset>
+				<div class="clear"></div>
+				<div id="buttons">
+					<input type="submit" value="회원가입" class="submit"> 
+					<input type="reset" value="다시 작성" class="cancel">
+				</div>
+			</form>
+		</article>
+		<!-- 본문내용 -->
+		<!-- 본문들어가는 곳 -->
 
-<div class="clear"></div>
-<!-- 푸터들어가는 곳 -->
-<jsp:include page="../inc/bottom.jsp"/>
-<!-- 푸터들어가는 곳 -->
-</div>
+		<div class="clear"></div>
+		<!-- 푸터들어가는 곳 -->
+		<jsp:include page="../inc/bottom.jsp" />
+		<!-- 푸터들어가는 곳 -->
+	</div>
 </body>
 </html>

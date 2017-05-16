@@ -30,7 +30,7 @@
 <div id="wrap">
 <!-- 헤더파일들어가는 곳 -->
 <header>
-<div id="login"><a href="member/login.html">login</a> | <a href="member/join.html">join</a></div>
+<div id="login"><a href="member/login.jsp">login</a> | <a href="member/join.jsp">join</a></div>
 <div class="clear"></div>
 <!-- 로고들어가는 곳 -->
 <div id="logo"><img src="images/logo.gif" width="265" height="62" alt="Fun Web"></div>
