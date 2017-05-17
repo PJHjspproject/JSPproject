@@ -21,6 +21,27 @@
 
  </script>
  <![endif]-->
+ <script type="text/javascript">
+ 
+ 	function winopen() {
+ 		//회원가입시 아이디를 입력하지 않았을시 
+		if(document.fr.id.value==""){
+			alert("아이디를 입력하세요");
+			document.fr.id.focus();
+			return;
+		}
+		//작은창을 열기 join_IDCheck.jsp width=400 height=200
+		var fid = document.fr.id.value;//폼태그에 아이디값 변수에저장
+		window.open("join_IDCheck.jsp?userid="+fid , "", "width=400, height=200")
+		
+	}
+	
+ 
+ </script>
+ 
+ 
+ 
+ 
 </head>
 <body>
 	<div id="wrap">
