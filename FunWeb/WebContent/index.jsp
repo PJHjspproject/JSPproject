@@ -34,7 +34,7 @@
 	String id = (String)session.getAttribute("id");
 	if(id== null){//세션id값이 없을때
 %>
-<div id="login"><a href="member/login.jsp">login</a> | <a href="../member/join.jsp">join</a></div>
+<div id="login"><a href="member/login.jsp">login</a> | <a href="member/join.jsp">join</a></div>
 
 <%		
 	}else{
