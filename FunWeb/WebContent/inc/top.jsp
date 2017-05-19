@@ -11,8 +11,10 @@
 <% 
 	}else{
 %>
-		<%=id %>님 환영합니다!
+	<div id="login">
+		<%=id %>님....... 반갑습니다. 
 		<a href="../member/logout.jsp">logout</a>
+	</div>
 <%		
 	}
 %>
