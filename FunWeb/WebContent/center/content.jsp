@@ -43,6 +43,9 @@
 	
 	BoardDto dto = dao.getBoard(num);
 	String DBcontent= "";
+	int DBRe_ref=dto.getRe_ref();
+	int DBRe_lev=dto.getRe_lev();
+	int DBRe_seq=dto.getRe_seq();
 	if(dto.getContent() !=null){
 		DBcontent = dto.getContent().replace("\n", "<br>");
 	}
@@ -112,7 +115,8 @@
 	<div id="table_search">
 		<input type="button" value="글 수정" class="btn" onclick="location.href='update.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>'">
 		<input type="button" value="글 삭제" class="btn" onclick="location.href='delete.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>'">
-		<input type="button" value="답글 쓰기" class="btn">
+		<input type="button" value="답글 쓰기" class="btn"
+		onclick="location.href='rewrite.jsp?num=<%=dto.getNum()%>&re_ref=<%=DBRe_ref%>&re_lev=<%=DBRe_lev%>&re_seq=<%=DBRe_seq%>'">
 	
 		
 	<%		
