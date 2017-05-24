@@ -36,6 +36,42 @@ public class BoardDAO {
 
 		return con;
 	}
+	//게시판을 삭제하기 위한 메소드	
+	public int deleteBoard(int num,String passwd){
+		int check=0;
+		String sql ="";
+		String password="";
+		try{
+			con = getConnection();
+			sql = "select passwd from board where num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				password = rs.getString(1);
+			}
+			if(password.equals(passwd)){
+				sql = "delete from board where num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				check = pstmt.executeUpdate();
+						
+				
+			}else{
+				check = 0;
+			}
+			
+			
+		}catch(Exception e){
+			System.out.println("insertBoard 메소드 에러!!! ");
+			e.printStackTrace();
+		}finally{
+			freeResource();
+		}
+		//비밀먼호 일치유무 리턴
+		return check;
+	}
 	//게시판 주글 추가 메소드 답변글 아님;;
 	public int insertBoard(BoardDto dto){
 		 
@@ -114,8 +150,91 @@ public class BoardDAO {
 		
 		return count;
 	}
+	//글 상세보기시 조회수 +1 증가시키는 메소드
+	public void updateReadCount(int num){
+		
+		String sql="";
+		try{
+			con = getConnection();
+			sql= "update board set readcount=readcount+1 where num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		}catch(Exception e){
+			System.out.println("updateReadCount 메소드 에러!!!");
+			
+		}finally{
+			freeResource();
+		}
+		
+	}
+
+	public BoardDto getBoard(int num){
+		
+		BoardDto dto = new BoardDto();
+		String sql = " ";
+		try{
+			con = getConnection();
+			sql= "select * from board where num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				dto.setNum(rs.getInt("num"));
+				dto.setName(rs.getString("name"));
+				dto.setPasswd(rs.getString("passwd"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
+				dto.setFile(rs.getString("file"));
+				dto.setRe_ref(rs.getInt("re_ref"));
+				dto.setRe_lev(rs.getInt("re_lev"));
+				dto.setRe_seq(rs.getInt("re_seq"));
+				dto.setReadcount(rs.getInt("readcount"));
+				dto.setDate(rs.getTimestamp("date"));
+				dto.setIp(rs.getString("ip"));
+				
+			}
+						
+		}catch(Exception e){
+			System.out.println("updateReadCount 메소드 에러!!!");
+			e.printStackTrace();
+			
+		}finally{
+			freeResource();
+		}
+		return dto;
+	}
+	public int updateBoard(BoardDto dto){
+		String sql = "";
+		int check = 0;
+		try{
+			con = getConnection();
+			sql = "update board set name=?,passwd=?,subject=?,"
+					+"content=?,date=? where num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getPasswd());
+			pstmt.setString(3, dto.getSubject());
+			pstmt.setString(4, dto.getContent());
+			pstmt.setTimestamp(5, dto.getDate());
+			pstmt.setInt(6, dto.getNum());
+			check = pstmt.executeUpdate();
+		}catch(Exception e){
+			System.out.println("updateReadCount 메소드 에러!!!");
+			e.printStackTrace();
+		}finally{
+			freeResource();
+		}
+		return check;
+	}
+
 	
-	public ArrayList getBoardList(){
+	
+	//글 목록 가져오기 메소드
+	//글정보 하나하나를 ArrayList에 담아서 getBoardList메소드를 호출한 곳으로
+	//BoardBean 객체들을 저장하고 있는 ArrayList 객체 리턴
+	public ArrayList getBoardList(int startRow, int pageSize){
 		ArrayList<BoardDto> arr = new ArrayList<BoardDto>();
 		
 		String sql="";
@@ -123,17 +242,26 @@ public class BoardDAO {
 		
 		try{
 			con = getConnection();
-			sql = "select * from board";
+			//각페이지 마다 맨위에 첫번째로 보여질 시작글번호 , 한페이지당 보여줄 글갯수
+			sql = "select * from board order by re_ref desc, re_seq asc limit ?,?";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, pageSize);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){
 				BoardDto dto = new BoardDto();
-				
+				dto.setContent(rs.getString("content"));
+				dto.setPasswd(rs.getString("passwd"));
 				dto.setNum(rs.getInt("num"));
+				dto.setFile(rs.getString("file"));
+				dto.setIp(rs.getString("ip"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setName(rs.getString("name"));
 				dto.setDate(rs.getTimestamp("date"));
+				dto.setRe_lev(rs.getInt("re_lev"));
+				dto.setRe_ref(rs.getInt("re_ref"));
+				dto.setRe_seq(rs.getInt("re_seq"));
 				dto.setReadcount(rs.getInt("readcount"));
 				
 				arr.add(dto);
@@ -150,5 +278,7 @@ public class BoardDAO {
 		
 		return arr;
 	}
+	
+
 
 }

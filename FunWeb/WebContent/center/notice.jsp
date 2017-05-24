@@ -28,6 +28,22 @@
  <![endif]-->
 </head>
 <%
+
+	int pageSize = 5;
+	//현재 보여질 페이지 번호 확인하기
+	String pageNum = request.getParameter("pageNum");
+	//현재 보여질 페이지번호가 없으면 1페이지로 처리
+	if(pageNum==null){
+		pageNum="1";
+	}
+	//현재 보여질 페이지 번호
+	//현재 보여질 페이지가 번호 "1" 을 -> 정수형 1로 변경
+	int currentPage = Integer.parseInt(pageNum);
+	
+	//각페이지마다 위쪽에 첫번쨰로 보여질 시작 글번호 구하기
+	//(현재 보여질 페이지번호 - 1) * 한페이지당 보여질 글개수 15
+	int startRow = (currentPage - 1) * pageSize; 
+	
 	//DB작업 객체 생성
 	BoardDAO dao = new BoardDAO();
 	
@@ -35,13 +51,16 @@
 	int count = dao.getBoardCount();
 	//게시판 글객체를 저장하기 위한 용도
 	ArrayList<BoardDto> arr = null;
+		
 	SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+		
 	if(count>0){
 		//글 목록 리턴
-		arr = dao.getBoardList();
+		//getBoardList(객페이지마다 맨위에 첫번째로 보여질 시작글번호 , 한페이지당 보여줄 글개수)
+		arr = dao.getBoardList(startRow,pageSize);
 	}
 	
-	System.out.println(count);
+	
 	
 %>
 
@@ -71,23 +90,24 @@
 <article>
 	<h1>Notice[전체 글 갯수 : <%=count %>]</h1>
 	<table id="notice">
-		<tr align="center"><th class="tno">No.</th>
+		<tr align="center">
+			<th class="tno">No.</th>
 		    <th class="ttitle">Title</th>
 		    <th class="twrite">Writer</th>
 		    <th class="tdate">Date</th>
 		    <th class="tread">Read</th></tr>
 		    <%
 		    	if(count==0){
-		    		%>
+		    %>
 		    		<tr>
 		    		<td colspan="5">글이 없습니다.</td>
 		    		</tr>
-		    		<%
+		    <%
 		    	}else{
 		    	for(int i=0;i<arr.size();i++){
 		    		BoardDto dto = (BoardDto)arr.get(i);
-		    		%>
-		    		<tr>
+		    %>
+		    		<tr onclick="location.href='content.jsp?&num=<%=dto.getNum()%>&pageNum=<%=pageNum%>'">
 		    		<td class="tno"><%=dto.getNum()%></td>
 		    		<td class="ttitle"><%=dto.getSubject()%></td>
 		    		<td class="twrite"><%=dto.getName() %></td>
