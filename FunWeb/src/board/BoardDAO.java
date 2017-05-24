@@ -36,6 +36,45 @@ public class BoardDAO {
 
 		return con;
 	}
+	public int updateBoard(BoardDto dto){
+		String sql = "";
+		int check = 0;
+		
+		
+		try{
+			con = getConnection();
+			sql = "select passwd from board where num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getNum());
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				
+				if(dto.getPasswd().equals(rs.getString("passwd"))){
+					check =1;
+					sql = "update board set name=?,subject=?,"
+							+"content=?,date=? where num = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, dto.getName());
+					pstmt.setString(2, dto.getSubject());
+					pstmt.setString(3, dto.getContent());
+					pstmt.setTimestamp(4, dto.getDate());
+					pstmt.setInt(5, dto.getNum());
+					pstmt.executeUpdate();
+			
+				}else{
+				check=0;
+				}
+			}
+		}catch(Exception e){
+			System.out.println("updateBoaed 메소드 에러!!!"+e);
+			e.printStackTrace();
+		}finally{
+			freeResource();
+		}
+		return check;
+	}
+
+	
 	//게시판을 삭제하기 위한 메소드	
 	public int deleteBoard(int num,String passwd){
 		int check=0;
@@ -205,31 +244,7 @@ public class BoardDAO {
 		}
 		return dto;
 	}
-	public int updateBoard(BoardDto dto){
-		String sql = "";
-		int check = 0;
-		try{
-			con = getConnection();
-			sql = "update board set name=?,passwd=?,subject=?,"
-					+"content=?,date=? where num = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, dto.getName());
-			pstmt.setString(2, dto.getPasswd());
-			pstmt.setString(3, dto.getSubject());
-			pstmt.setString(4, dto.getContent());
-			pstmt.setTimestamp(5, dto.getDate());
-			pstmt.setInt(6, dto.getNum());
-			check = pstmt.executeUpdate();
-		}catch(Exception e){
-			System.out.println("updateReadCount 메소드 에러!!!");
-			e.printStackTrace();
-		}finally{
-			freeResource();
-		}
-		return check;
-	}
 
-	
 	
 	//글 목록 가져오기 메소드
 	//글정보 하나하나를 ArrayList에 담아서 getBoardList메소드를 호출한 곳으로

@@ -28,20 +28,21 @@
 	// 세션값 가져오기 
 	// 세션값을 가져오는 이유 : 글수정 화면에 이름을 뿌려주기 위한 용도 
 	String id = (String)session.getAttribute("id");
-	//수정할 글번호, 페이지 넘버 가져오기 
-	int num = Integer.parseInt(request.getParameter("num"));
-	String pageNum = request.getParameter("pageNum");
-
 	//세션값이 없으면 login.jsp로 이동 해서 !!  로그인을 하고  글을 써라!!!
 	if(id == null){
 		response.sendRedirect("../member/login.jsp");
 	}
+	//수정할 글번호, 페이지 넘버 가져오기 
+	int num = Integer.parseInt(request.getParameter("num"));
+	String pageNum = request.getParameter("pageNum");
+
+
 	BoardDAO dao = new BoardDAO(); 
 	BoardDto dto = dao.getBoard(num);
 	
 	String passwd = dto.getPasswd();
 	String subject = dto.getSubject();
-	String content = dto.getContent();
+	String content = dto.getContent().replace("\n", "<br/>");
 %>
 <body>
 <div id="wrap">
@@ -67,17 +68,18 @@
 
 <!-- 게시판 -->
 <article>
-	<h1>Notice Write</h1>
+	<h1>Notice Update</h1>
 	<form action="updatePro.jsp?pageNum=<%=pageNum%>" method="post">
 		<input type="hidden" name="num" value="<%=num%>">
+		
 		<table id="notice">
 			<tr>
-				<td>작성자</td>
+				<td>이름</td>
 				<td><input type="text" name="name" value="<%=id %>" readonly="readonly"> </td>
 			</tr> 
 			<tr>
-				<td>비밀번호</td>
-				<td><input type="password" name="passwd" value="<%=passwd%>>"> </td>
+				<td>비밀번호(입력해야 글수정)</td>
+				<td><input type="password" name="passwd"> </td>
 			</tr>
 			<tr>
 				<td>글제목</td>
@@ -92,7 +94,7 @@
 		<div id="table_search">
 			<input type="submit" value="글수정" class="btn">
 			<input type="reset" value="다시쓰기" class="btn">
-			<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'">
+			<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp?pageNum=<%=pageNum%>'">
 		</div>
 	</form>
 	
