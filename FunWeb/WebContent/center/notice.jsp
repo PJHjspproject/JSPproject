@@ -29,6 +29,7 @@
 </head>
 <%
 
+
 	int pageSize = 5;
 	//현재 보여질 페이지 번호 확인하기
 	String pageNum = request.getParameter("pageNum");
@@ -59,8 +60,9 @@
 		//getBoardList(객페이지마다 맨위에 첫번째로 보여질 시작글번호 , 한페이지당 보여줄 글개수)
 		arr = dao.getBoardList(startRow,pageSize);
 	}
-	
-	
+
+	System.out.println(count);
+
 	
 %>
 
@@ -90,6 +92,7 @@
 <article>
 	<h1>Notice[전체 글 갯수 : <%=count %>]</h1>
 	<table id="notice">
+
 		<tr align="center">
 			<th class="tno">No.</th>
 		    <th class="ttitle">Title</th>
@@ -107,19 +110,19 @@
 		    	for(int i=0;i<arr.size();i++){
 		    		BoardDto dto = (BoardDto)arr.get(i);
 		    %>
-		    		<tr onclick="location.href='content.jsp?&num=<%=dto.getNum()%>&pageNum=<%=pageNum%>'">
+	    		<tr onclick="location.href='content.jsp?&num=<%=dto.getNum()%>&pageNum=<%=pageNum%>'">
 		    		<td class="tno"><%=dto.getNum()%></td>
 		    		<td class="ttitle"><%=dto.getSubject()%></td>
 		    		<td class="twrite"><%=dto.getName() %></td>
 		    		<td class="tdate"><%=s.format(dto.getDate())%></td>
 		    		<td class="tread"><%=dto.getReadcount()%></td>
-		    		</tr>
+	    		</tr>
 		    		
 			    <%	
 		    	
-		    	}
+		    	}//for end
 		    	
-		    	}
+		    	}//else end
 		    %>
 
 	</table>
@@ -134,7 +137,7 @@
 		<input type="button" value="글쓰기" class="btn" onclick="location.href='write.jsp'">
 	</div>		
 		
-	<%		
+	<%
 		}
 	%>
 	<div id="table_search">

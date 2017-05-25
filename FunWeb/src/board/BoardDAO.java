@@ -36,6 +36,7 @@ public class BoardDAO {
 
 		return con;
 	}
+
 	public int updateBoard(BoardDto dto){
 		String sql = "";
 		int check = 0;
@@ -103,7 +104,7 @@ public class BoardDAO {
 			
 			
 		}catch(Exception e){
-			System.out.println("insertBoard 메소드 에러!!! ");
+			System.out.println("deleteBoard 메소드 에러!!! ");
 			e.printStackTrace();
 		}finally{
 			freeResource();
@@ -163,7 +164,7 @@ public class BoardDAO {
 		return result;
 	}
 	
-	public int getBoardCount(){
+	public int getBoard(){
 		
 		int count=0;
 		String sql="";
@@ -293,7 +294,69 @@ public class BoardDAO {
 		
 		return arr;
 	}
+
+	public int getBoardCount(){
+		
+		int count=0;
+		String sql="";
+		
+		try{
+			con =getConnection();
+			sql="select count(*) from board";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				count=rs.getInt(1);
+			}else{
+				count=0;
+			}
+			
+		}catch(Exception e){
+			System.out.println("getCountBoard 메소드 에러!!!");
+			e.printStackTrace();
+		}finally{
+			freeResource();
+		}
+		
+		
+		return count;
+	}
 	
+	public ArrayList getBoardList(){
+		ArrayList<BoardDto> arr = new ArrayList<BoardDto>();
+		
+		String sql="";
+		
+		
+		try{
+			con = getConnection();
+			sql = "select * from board";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				BoardDto dto = new BoardDto();
+				
+				dto.setNum(rs.getInt("num"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setName(rs.getString("name"));
+				dto.setDate(rs.getTimestamp("date"));
+				dto.setReadcount(rs.getInt("readcount"));
+				
+				arr.add(dto);
+			}
+			
+			
+		}catch(Exception e){
+			System.out.println("getBoardList 메소드 에러!!!");
+			e.printStackTrace();
+		}finally{
+			freeResource();
+		}
+		
+		
+		return arr;
+	}
 
 
 }
