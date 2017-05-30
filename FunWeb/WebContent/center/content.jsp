@@ -1,8 +1,10 @@
+<%@page import="board.BoardDto"%>
+<%@page import="java.sql.Timestamp"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="board.BoardDto"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.Vector"%>
 <%@page import="board.BoardDAO"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,8 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../css/default.css?ver=1" rel="stylesheet" type="text/css">
-<link href="../css/subpage.css?=ver=1" rel="stylesheet" type="text/css">
+<link href="../css/default.css" rel="stylesheet" type="text/css">
+<link href="../css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
 <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js" type="text/javascript"></script>
 <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/ie7-squish.js" type="text/javascript"></script>
@@ -28,33 +30,43 @@
  <![endif]-->
 </head>
 <%
-	/*글 상세보기 페이지*/
-	//notice.jsp페이지에서 글제목을 클릭해서 절달하여 넘어온 num,pagenum 한글처리
-	request.setCharacterEncoding("UTF-8");
-	
-//notice.jsp페이지에서 글제목을 클릭해서 전달하여 넘어온 값 변수에 저장
-	int num = Integer.parseInt(request.getParameter("num"));
-	String pageNum = request.getParameter("pageNum");
-	
-	// BoardDAO 객체생성
-	BoardDAO dao = new BoardDAO();
-	
-	dao.updateReadCount(num);
-	
-	BoardDto dto = dao.getBoard(num);
-	String DBcontent= "";
-	int DBRe_ref=dto.getRe_ref();
-	int DBRe_lev=dto.getRe_lev();
-	int DBRe_seq=dto.getRe_seq();
-	if(dto.getContent() !=null){
-		DBcontent = dto.getContent().replace("\n", "<br>");
-	}
-	
-	
-	SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
-	
-	
-	
+		/* 글 상세보기 페이지 */
+		// notice.jsp페이지에서 글제목을 클릭해서 전달하여 넘어온 num,pageNum 한글처리
+		request.setCharacterEncoding("UTF-8");
+		
+		//num, pageNum 넘겨받기
+		int num = Integer.parseInt(request.getParameter("num"));
+		String pageNum = request.getParameter("pageNum");
+		
+		//BoardDAO객체 생성
+		BoardDAO dao = new BoardDAO();	
+		
+		//조회수 1증가
+		dao.updateReadCount(num);
+		
+		//상세 내용을 볼 글에 대한 글 번호 넘겨서 DB로부터 글 정보(dto객체)리턴 받아오기
+		BoardDto dto = dao.getBoard(num);
+		
+		//날짜 포맷 객체 생성
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		
+		int DBnum = dto.getNum();
+		int DBReadcount = dto.getReadcount();
+		String DBName = dto.getName();
+		Timestamp DBDate = dto.getDate();
+		String DBSubject = dto.getSubject();
+		String DBContent = "";
+		//만약 글 내용이 존재한다면 !! // 글 내용 엔터처리
+		if(dto.getContent() != null){
+			DBContent = dto.getContent().replace("\n", "<br>");
+		}
+		//답변 달기에 이용할 변수값 받기
+		int DBRe_ref = dto.getRe_ref();
+		int DBRe_lev = dto.getRe_lev();
+		int DBRe_seq = dto.getRe_seq();
+		
+		System.out.println(DBRe_ref);
+		
 %>
 <body>
 <div id="wrap">
@@ -80,30 +92,28 @@
 
 <!-- 게시판 -->
 <article>
-	<h1>NoticeContent</h1>
+	<h1>Notice Content</h1>
 	<table id="notice">
 		<tr>
-			<td>글번호</td>
-			<td><%=dto.getNum()%></td>
-			<td>글조회수</td>
-			<td><%=dto.getReadcount() %></td>
+			<td class="writeMenubar">글 번호</td>
+			<td><%=DBnum %></td>
+			<td class="writeMenubar">조회수</td>
+			<td><%=DBReadcount %></td>
 		</tr>
 		<tr>
-			<td>작성자</td>
-			<td><%=dto.getName() %></td>
-			<td>작성일</td>
-			<td><%=s.format(dto.getDate())%></td>
+			<td class="writeMenubar">작성자</td>
+			<td><%=DBName %></td>
+			<td class="writeMenubar">작성일</td>
+			<td><%=sdf.format(DBDate) %></td>
 		</tr>
 		<tr>
-			<td>글제목</td>
-			<td colspan="3"><%=dto.getSubject() %></td>
-			
+			<td class="writeMenubar">글 제목</td>
+			<td colspan="3" ><%=DBSubject %></td>
 		</tr>
 		<tr>
-			<td>글내용</td>
-			<td colspan="3"><%=DBcontent%></td>
-			
-		</tr>
+			<td >글 내용</td>
+			<td colspan="3" class="writebox"><%=DBContent %></td>
+		</tr>	
 	</table>
 	
 	<%
@@ -113,17 +123,15 @@
 		if(id != null){
 	%>
 	<div id="table_search">
-		<input type="button" value="글 수정" class="btn" onclick="location.href='update.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>'">
-		<input type="button" value="글 삭제" class="btn" onclick="location.href='delete.jsp?num=<%=dto.getNum()%>&pageNum=<%=pageNum%>'">
-		<input type="button" value="답글 쓰기" class="btn"
-		onclick="location.href='rewrite.jsp?num=<%=dto.getNum()%>&re_ref=<%=DBRe_ref%>&re_lev=<%=DBRe_lev%>&re_seq=<%=DBRe_seq%>'">
-	
-		
+		<input type="button" value="글 수정" class="btn" onclick="location.href='update.jsp?num=<%=DBnum%>&pageNum=<%=pageNum%>'">
+		<input type="button" value="글 삭제" class="btn" onclick="location.href='delete.jsp?num=<%=DBnum%>&pageNum=<%=pageNum%>'">
+		<input type="button" value="답글 쓰기" class="btn" 
+		onclick="location.href='rewrite.jsp?num=<%=DBnum%>&re_ref=<%=DBRe_ref%>&re_lev=<%=DBRe_lev%>&re_seq=<%=DBRe_seq%>'">	
 	<%		
 		}
 	%>
-	<input type="button" value="목록보기" class="btn" onclick="location.href='notice.jsp'">
-	</div>		
+	<input type="button" value="목록 보기" class="btn">
+	</div>
 	<div class="clear"></div>
 	<div id="page_control"></div>
 </article>

@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <header>
 <%
 	String id = (String)session.getAttribute("id");
-
-	if(id==null){
+	
+	if(id == null){ //세션값이 없는 경우 
 %>
-	<div id="login"><a href="../member/login.jsp">login</a> | <a href="../member/join.jsp">join</a></div>
-<% 
-	}else{
-%>
+	<div id="login">
+		<a href="../member/login.jsp">login</a> | 
+		<a href="../member/join.jsp">join</a>
+	</div>
+<%		
+	}else{ //세션값이 있는 경우 
+%>		
 	<div id="login">
 		<%=id %>님....... 반갑습니다. 
 		<a href="../member/logout.jsp">logout</a>
@@ -18,7 +20,6 @@
 <%		
 	}
 %>
-
 
 <div class="clear"></div>
 <!-- 로고들어가는 곳 -->

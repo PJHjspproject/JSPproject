@@ -36,6 +36,61 @@ public class BoardDAO {
 
 		return con;
 	}
+	public void reInsertBoard(BoardDto dto){
+		
+		String sql = "";
+		int num = 0;
+		try {
+			//DB연결
+			con = getConnection();
+			/* 답변 글 글번호 구하기 */
+			// 기존 글 중에 num이 가장 큰 글 번호 검색
+			sql = "SELECT max(num) FROM board";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			// 만약에 검색한 글 번호가 있으면 
+			if(rs.next()){
+				//답변 글 번호 = 검색한 글 번호 + 1
+				num = rs.getInt("max(num)") + 1;
+			}else{//검색한 글 번호가 존재하지 않으면
+				//답변을 달 답변 글 번호를 1로 지정
+				num = 1;
+			}
+			/* re_seq 답글 순서 재배치 */
+			// 부모글 그룹과 같은 그룹이면서 부모글의 seq값보다 큰 답변 글들은 seq값을 1 증가 시킨다.
+			sql = "UPDATE board SET re_seq = re_seq + 1 WHERE re_ref=? and re_seq>?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getRe_ref());
+			pstmt.setInt(2, dto.getRe_seq());
+			pstmt.executeUpdate();
+			
+			/* 답변 글 달기 */
+			sql = "INSERT INTO board VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setString(2, dto.getName());
+			pstmt.setString(3, dto.getPasswd());
+			pstmt.setString(4, dto.getSubject());
+			pstmt.setString(5, dto.getContent());
+			pstmt.setString(6, dto.getFile());
+			pstmt.setInt(7, dto.getRe_ref());// 부모글의 그룹 번호
+			pstmt.setInt(8, dto.getRe_lev() + 1);// 부모글의 re_lev에 +1을 하여 들여쓰기 값 지정
+			pstmt.setInt(9, dto.getRe_seq() + 1);// 부모글의 re_seq에 +1을 하여 답글을 단 순서 정함.
+			pstmt.setInt(10, 0);// 답글의 조회수 0으로 지정
+			pstmt.setTimestamp(11, dto.getDate());
+			pstmt.setString(12, dto.getIp());
+			
+			pstmt.executeUpdate();
+					
+			
+		} catch (Exception e) {
+			System.out.println("reInsertBoard메서드에서 오류 "+e);
+		} finally {
+			freeResource();
+		}
+	
+	}
+	
 
 	public int updateBoard(BoardDto dto){
 		String sql = "";

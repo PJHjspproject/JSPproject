@@ -1,7 +1,10 @@
+<%@page import="java.sql.Timestamp"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="board.BoardBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="board.BoardDAO"%>
-<%@page import="board.BoardDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,22 +28,28 @@
  <![endif]-->
 </head>
 <%
-	// 세션값 가져오기 
-	// 세션값을 가져오는 이유 : 답글 화면에 이름을 뿌려주기 위한 용도 
-	String id = (String)session.getAttribute("id");
-	//세션값이 없으면 login.jsp로 이동 해서 !!  로그인을 하고  답글을 써라!!!
-	if(id == null){
-		response.sendRedirect("../member/login.jsp");
-	}
-	request.setCharacterEncoding("UTF-8");
-	//수정할 글번호, re_ref,re_lev,re_seq 받아오기;
-	int num = Integer.parseInt(request.getParameter("num"));
-	String pageNum = request.getParameter("pageNum");
-	int re_ref=Integer.parseInt(request.getParameter("re_ref"));
-	int re_lev=Integer.parseInt(request.getParameter("re_lev"));
-	int re_seq=Integer.parseInt(request.getParameter("re_seq"));
-	
+/*글 답변 페이지를 위한 글 상세보기*/
+
+//세션값 가져오기
+String id = (String)session.getAttribute("id");
+
+//세션 값이 없으면 login.jsp로 이동 <--- 로그인하고 수정!
+if(id == null){
+	response.sendRedirect("../member/login.jsp");
+}
+
+//request영역의 데이터 한글처리
+request.setCharacterEncoding("UTF-8");
+
+//content.jsp에서 글 답변 버튼을 클릭했을 때. 
+//전달 받은 주글 num,re_ref, re_lev, re_seq request영역에서 꺼내오기
+int num = Integer.parseInt(request.getParameter("num"));
+int re_ref = Integer.parseInt(request.getParameter("re_ref"));
+int re_lev = Integer.parseInt(request.getParameter("re_lev"));
+int re_seq = Integer.parseInt(request.getParameter("re_seq"));
+
 %>
+
 <body>
 <div id="wrap">
 <!-- 헤더들어가는 곳 -->
@@ -66,35 +75,37 @@
 <!-- 게시판 -->
 <article>
 	<h1>Notice Update</h1>
-	<form action="updatePro.jsp?pageNum=<%=pageNum%>" method="post">
-		<input type="hidden" name="num" value="<%=num%>">
-		
-		<table id="notice">
-			<tr>
-				<td>이름</td>
-				<td><input type="text" name="name" value="<%=id %>" readonly="readonly"> </td>
-			</tr> 
-			<tr>
-				<td>비밀번호(입력해야 글수정)</td>
-				<td><input type="password" name="passwd"> </td>
-			</tr>
-			<tr>
-				<td>글제목</td>
-				<td><input type="text" name="subject" value=""></td>
-			</tr>
-			<tr>
-				<td>글내용</td>
-				<td><textarea name="content"  rows="13" cols="40"  ></textarea> </td>
-			</tr>
-	
-		</table>
-		<div id="table_search">
-			<input type="submit" value="글수정" class="btn">
-			<input type="reset" value="다시쓰기" class="btn">
-			<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp?pageNum=<%=pageNum%>'">
-		</div>
+	<form action="rewritePro.jsp" method="post" name="fr">
+		<input type="hidden" name="num" value="<%=num %>">
+		<input type="hidden" name="re_ref" value="<%=re_ref %>">
+		<input type="hidden" name="re_lev" value="<%=re_lev %>">
+		<input type="hidden" name="re_seq" value="<%=re_seq %>">
+	<!-- 테이블 시작 -->
+	<table id="notice">
+		<tr>
+			<td>이름</td>
+			<td><input type="text" name="name"></td>
+		</tr>
+		<tr>
+			<td>비밀번호</td>
+			<td><input type="password" name="passwd"></td>
+		</tr>
+		<tr>
+			<td>글 제목</td>
+			<td><input type="text" name="subject" value="[답글]"></td>
+		</tr>
+		<tr>
+			<td>글 내용</td>
+			<td><textarea name="content" rows="13" cols="40"></textarea></td>
+		</tr>	
+	</table>	
+	<div id="table_search">
+		<input type="submit" value="답글 작성" class="btn">
+		<input type="reset" value="다시 작성" class="btn">	
+		<input type="button" value="목록 보기" class="btn"
+			   onclick="location.href='notice.jsp'">
+	</div>
 	</form>
-	
 	<div class="clear"></div>
 	<div id="page_control"></div>
 </article>
@@ -107,3 +118,7 @@
 </div>
 </body>
 </html>
+
+
+
+

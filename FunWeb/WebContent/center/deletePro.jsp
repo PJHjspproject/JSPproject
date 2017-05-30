@@ -1,7 +1,7 @@
 <%@page import="board.BoardDAO"%>
-<%@page import="java.sql.Timestamp"%>
+<%@page import="board.BoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,44 +11,45 @@
 <body>
 <h1>deletePro.jsp</h1>
 <%
-	//한글처리
-	request.setCharacterEncoding("UTF-8");
-	//세션값 가져오는 이유 로그인시 글삭제 작업 비활성화 하고 로그인후 작업가능하게
-	//login.jsp 페이지로 이동
-	//글번호 , 페이지 넘버 ,비밀번호
+
+	//delete.jsp(글 삭제시 비밀번호를 작성하는 페이지)에서 삭제할 글 번호, 페이지 넘버값, 작성한 비밀번호 가져오기
 	int num = Integer.parseInt(request.getParameter("num"));
 	String pageNum = request.getParameter("pageNum");
 	String passwd = request.getParameter("passwd");
-
-%>
-<%--액션태그로 BoardBean 객체 생성 --%>
-<%--request 값을 전달받아 BoardDto에 저장 --%>
-<jsp:useBean id="dto" class="board.BoardDto"/>
-<jsp:setProperty property="*" name="dto"/>
-
-<%
-
+	
+	//DB객체 생성
 	BoardDAO dao = new BoardDAO();
-	int check = dao.deleteBoard(num, passwd);
-	System.out.println("글삭제 결과(0은 실패 1은 성공)"+check);
-	if(check==1){
+	
+	int check = dao.deleteBoard(num,passwd);
+	// check == 1. "삭제 성공!" 메시지창 띄우기 -> notice.jsp로 이동
+	// check == 0. "비밀번호 틀림" 메시지창 띄우기	-> delete.jsp로 이동(뒤로 이동)	
+	
+	if(check == 1){
 	%>
-		<script type="text/javascript">
-			alert("글삭제 성공!");
-			location.href="notice.jsp?pageNum=<%=pageNum%>";
-		</script>
-	<% 
+	<script type="text/javascript">
+		alert("삭제 성공!")
+		location.href="notice.jsp?pageNum=<%=pageNum%>";
+	</script>	
+	<%	
 	}else{
 	%>
-		<script type="text/javascript">
-		alert("글삭제실패!");
+	<script type="text/javascript">
+		alert("비밀번호 틀림!")
 		history.back();
-		</script>
-	<%	
+	</script>	
+	<%		
 	}
-	
-	
 %>
+	
+	
+
+
+
+
+
+
+
+
 
 </body>
 </html>

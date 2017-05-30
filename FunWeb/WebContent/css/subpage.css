@@ -38,7 +38,7 @@ font-size: 1em;line-height: 1.5em}
 글자체Verdana,Geneva,sans-serif 글자크기1em 
 줄간격1.5em */
 article h1{font-family: "Times New Roman";
-font-size: 45px; color: #CCC; margin: 20px 0;
+font-size: 25px; color: #CCC; margin: 20px 0;
 font-weight: normal;
 }/*글자체 Times New Roman 글자크기 45px
 글자색 #CCC 밖여백20px 0  글자굵기 normal*/
@@ -63,8 +63,8 @@ src: url("../images/segoeui.eot");
 src: local(""),
      url("../images/segoeui.woff")format("woff"),
      url("../images/segoeui.ttf")format("truetype");}
-article table#notice th{height: 20px;
-text-transform: capitalize;font-size: 14px;
+article table#notice th{height: 12px;
+text-transform: capitalize;font-size: 13px;
 font-family: seo; font-weight: bold;padding: 5px;
 background-image: url("../images/center/t_back.jpg");
 background-repeat: repeat-x;
@@ -95,6 +95,22 @@ article th.tdate{width: 50px;}
 article th.tread{width: 50px;
 border-top-right-radius:5px;
 border-bottom-right-radius:5px;}
+메뉴 색깔들
+article table#notice .writeMenubar{
+/* 	border: 1px solid red; */
+	background-color: #8080ff;
+}
+/*텍스트 박스 */
+article table#notice .writebox{
+	height: 300px;
+/* 	border: 1px solid red; */
+	background-color: #d9e7ff;
+	padding: 50px 50px 50px 50px;
+	text-align:left;
+	line-height: 4em;
+}
+
+
 /*너비 50px 
 오른쪽위 둥글게5px 오른쪽아래 둥글게5px*/
 article #table_search{margin: 15px 0 10px 0;

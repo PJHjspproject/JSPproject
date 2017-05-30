@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,16 +24,22 @@
 </head>
 <%
 	// 세션값 가져오기 
-	// 세션값을 가져오는 이유 : 글삭제 화면에서 로그인 처리를 위해
+	// 세션값을 가져오는 이유 : 글 삭제 화면에서 로그인 처리를 위해 가져옴.
 	String id = (String)session.getAttribute("id");
 
-	//세션값이 없으면 login.jsp로 이동 해서 !!  로그인을 하고  삭제 해라!!!
+	// 세션값이 없으면 login.jsp로 이동해서 !!  로그인을 하고  삭제해라!!!
 	if(id == null){
 		response.sendRedirect("../member/login.jsp");
 	}
-	//삭제할 글번호, 페이지 넘버 가져오기 
+	// content.jsp에서 삭제할 글 번호, 페이지 넘버값 가져오기.
 	int num = Integer.parseInt(request.getParameter("num"));
 	String pageNum = request.getParameter("pageNum");
+	
+	
+	
+	
+	
+	
 %>
 <body>
 <div id="wrap">
@@ -47,20 +53,14 @@
 <!-- 메인이미지 -->
 
 <!-- 왼쪽메뉴 -->
-<nav id="sub_menu">
-<ul>
-<li><a href="#">Notice</a></li>
-<li><a href="#">Public News</a></li>
-<li><a href="#">Driver Download</a></li>
-<li><a href="#">Service Policy</a></li>
-</ul>
-</nav>
+
 <!-- 왼쪽메뉴 -->
 
 <!-- 게시판 -->
 <article>
 	<h1>Notice Delete</h1>
-	<form action="deletePro.jsp?pageNum=<%=pageNum%>" method="post">
+	<form action="deletePro.jsp?pageNum=<%=pageNum %>" method="post">
+		<!-- deletePro.jsp로 이동시 .. 삭제할 글 번호 전달 히든으로 -->
 		<input type="hidden" name="num" value="<%=num%>">
 		<table id="notice">
 			<tr>
@@ -69,12 +69,12 @@
 			</tr>
 		</table>
 		<div id="table_search">
-			<input type="submit" value="글삭제" class="btn">
-			<input type="reset" value="다시쓰기" class="btn">
-			<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp?pageNum=<%=pageNum%>'">
+			<input type="submit" value="글 삭제" class="btn">
+			<input type="reset" value="다시 쓰기" class="btn">
+			<input type="button" value="글 목록" class="btn" 
+				   onclick="location.href='notice.jsp?pageNum=<%=pageNum%>'">
 		</div>
-	</form>
-	
+	</form>	
 	<div class="clear"></div>
 	<div id="page_control"></div>
 </article>
@@ -87,3 +87,7 @@
 </div>
 </body>
 </html>
+
+
+
+
