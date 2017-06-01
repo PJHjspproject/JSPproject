@@ -9,8 +9,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	//업로드할 실제 서버경로 얻기
-	//String realFolder=getServletContext().getRealPath("upload");
-	String realFolder="D:/";
+	String realFolder=getServletContext().getRealPath("upload");
+	//String realFolder="D:/";
 	/*업로드할수있는 파일의 최대크기  지정 100MB*/
 	int max = 100 *1024 * 1024;
 	MultipartRequest multi = new MultipartRequest(request,realFolder,max,"UTF-8",new DefaultFileRenamePolicy());
@@ -50,6 +50,8 @@
 		for(int i=0; i<saveFiles.size(); i++){
 	%>
 		<li>
+			<!-- 파일다운로드 처리하는 download.jsp페이지로 
+			파일가상경로 & 실제 다운로드할 파일이름을 전달한다. -->
 			<a href="download.jsp?path=upload&name=<%=saveFiles.get(i)%>"><%=originFiles.get(i) %></a>
 		</li>
 	<%

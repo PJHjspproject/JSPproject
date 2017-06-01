@@ -25,7 +25,8 @@
 			var cnt = f.elements.length;
 			
 			var filecnt = 1;
-			
+			//인덱스 0 -> 첫번째 <input type="file">
+			//인덱스 1 -> 두번째 <input type="file">
 			for(i = 0 ; i<cnt;i++){
 				//두번쨰 폼 내부에있는 인풋태그의 타입이 파일과 같고
 				if(f.elements[i].type=="file"){
@@ -59,7 +60,7 @@
 	추가할 파일 수 입력 : <input type="text" name="add" size="2">
 	<input type="button" value="추가" onclick="addInput()"><br/><p/>
 	<div id="inputDiv">
-		<input type="button" value="전송" onclick="fnElementsCheck(this.form)"/>
+		<input type="button" value="전송" onclick="fnElementsCheck(this.form)"/><br/><p/>
 	</div>
 </form>
 </body>
