@@ -18,7 +18,7 @@
 	<c:set var="center" value="inc/Center.jsp"/>
 </c:if>
 <center>
-	<table border="1" width="1000" height="700">
+	<table width="1000" height="700">
 		<!-- header - top.jsp -->
 		<tr align="center">
 			<td>
@@ -27,13 +27,13 @@
 		</tr>
 		<!-- center -->
 		<tr>
-			<td height="500">
+			<td height="500" >
 				<jsp:include page="${ center }"/>
 			</td>
 		</tr>
 		<!-- footer  - bottom.jsp -->
 		<tr>
-			<td height="100">
+			<td>
 				<jsp:include page="inc/bottom.jsp"/>
 			</td>
 		</tr>

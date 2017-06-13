@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>검색한 차량리스트들</title>
 </head>
 <body>
-	<a href="CarMain.jsp?center=NoticeListController.do">
-		<img src="img/Main.jpg" width="1000">
-	</a>
+
 </body>
 </html>
