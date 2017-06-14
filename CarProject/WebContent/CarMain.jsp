@@ -17,6 +17,7 @@
 <c:if test="${center == null }">
 	<c:set var="center" value="inc/Center.jsp"/>
 </c:if>
+
 <center>
 	<table width="1000" height="700">
 		<!-- header - top.jsp -->

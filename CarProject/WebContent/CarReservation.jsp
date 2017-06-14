@@ -38,7 +38,8 @@
 							<option value="Small">소형</option>
 							<option value="Mid">중형</option>
 							<option value="Big">대형</option>
-					</select></td>
+					</select>
+					</td>
 					<td align="center"><input type="submit" value="검색"></td>
 					<td align="center"><input type="button" value="전체검색"
 						onclick="location.href='CarListController.do'"></td>
