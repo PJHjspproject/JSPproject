@@ -12,7 +12,7 @@
 		<!-- 결제하기 이미지 나타내기 -->
 		<img alt="CarOrderController.do" src="img/haki.jpg" border="0">
 		<%-- 결제하기 버튼을 눌럿을때 Controller 서블릿을 요청시 렌트 정보를 전달 --%>
-		<form action="" method="post">
+		<form action="CarOrderController.do" method="post">
 		<!-- 실제 예약에 관련한 데이터를 CarOrderController.java서블릿 파일로 전달 -->
 		<input type="hidden" name="carno" value="${requestScope.cbean.carno }">
 		<input type="hidden" name="carqty" value="${requestScope.cbean.carqty }">

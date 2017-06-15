@@ -153,13 +153,24 @@ public class CarDAO {
 	public void insertCarOrder(CarOrderBean cbean) {
 		
 		CarListBean bean = null;
-		int result = 0;
+		
 		try{
 			getCon();
-			String sql="";
-			
+			String sql="insert into carorder(carno,carqty,carreserveday,carbegindate,carins,carwifi,carnavi,carbabyseat,"
+					+"memberphone,memberpass) values(?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
-			result = pstmt.executeUpdate();
+			/*pstmt.set.. DB저장하기*/
+			pstmt.setInt(1, cbean.getCarno());
+			pstmt.setInt(2, cbean.getCarqty());
+			pstmt.setInt(3, cbean.getCarreserveday());
+			pstmt.setString(4, cbean.getCarbegindate());
+			pstmt.setInt(5, cbean.getCarins());
+			pstmt.setInt(6, cbean.getCarwifi());
+			pstmt.setInt(7, cbean.getCarnavi());
+			pstmt.setInt(8, cbean.getCarbabyseat());
+			pstmt.setString(9, cbean.getMemberphone());
+			pstmt.setString(10, cbean.getMemberpass());
+			pstmt.executeUpdate();
 					
 			
 		}catch(Exception e){
