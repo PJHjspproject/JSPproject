@@ -1,93 +1,64 @@
-<%@page import="java.util.Vector"%>
-<%@page import="db.CarDAO"%>
-<%@page import="db.CarListBean"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	request.setCharacterEncoding("UTF-8");
-	
-	CarDAO cdao =new CarDAO();
-	String Carcategory = request.getParameter("carcategory");
-	Vector v =(Vector)request.getAttribute("v");
-	
-	
-		
-%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ê²€ìƒ‰í•œ ì°¨ëŸ‰ë¦¬ìŠ¤íŠ¸ë“¤</title>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
 </head>
 <body>
 	<center>
-		<!-- <ì°¨ëŸ‰ ì •ë³´ ë³´ê¸°> ì´ë¯¸ì§€ ì ìš©  -->
-		<img src="img/cis.jpg" border="0">
-		<!-- ì‹¤ì œ ì „ì²´ì°¨ëŸ‰ì— ê´€í•œ ì´ë¯¸ì§€ ë¿Œë ¤ì£¼ê¸° -->
+		<!-- <Â÷·® Á¤º¸ º¸±â> ÀÌ¹ÌÁö Àû¿ë -->
+		<img alt="" src="img/cis.jpg" border="0">
 		
-		<form action="CarcategoryController.do" method="post">
+	<form action="CarcategoryController.do" method="post">
+		<!-- ½ÇÁ¦ ÀüÃ¼Â÷·®¿¡ °üÇÑ ÀÌ¹ÌÁö »Ñ·ÁÁÖ±â -->
 		<table width="1000" border="0" height="470">
-		
-
-		
-			
-<%
-	for(int i=0 ; i<v.size(); i++){
-		if(i%2==0){
-%>
-	<tr align="center">
-<% 			
-		}
-		CarListBean cbean = (CarListBean)v.get(i);
-		String img = cbean.getCarimg();
-		int carprice = cbean.getCarprice();
-		String carname =cbean.getCarname();
-%>		
-		<td>
-		<img src="img/<%=img%>" width="220" height="180"><br/>
-		ì°¨ ê°€ê²©: <%=carprice %><br/>
-		ì°¨ëŸ‰ ëª…: <%=carname %><br/>
-		</td>
-			
-		
-<%
-	}
-%>
-		</tr>
-<%-- 	
-			<c:set var="j" value="0" />
-			<!-- CarListControllerì—ì„œ ë„˜ê²¨ë°›ì€ ë¦¬í€˜ìŠ¤íŠ¸ ì˜ì—­ì•ˆì— ìžˆëŠ” ë°±í„° ì‚¬ì´ì¦ˆ ë§Œí¼ ë°˜ë³µ -->
-			<c:forEach var="v" items="${requestScope.v}">
-				<!-- 4ì—´ì‹ ìžë™ì°¨ ì´ë¯¸ì§€ì™€ ë‚´ìš©ì„ ë¿Œë ¤ì£¼ê¸° ìœ„í•´ì„œ 4ê°œì˜ ìžë™ì°¨ ì •ë³´ë¥¼ ë¿Œë ¤ì¤„ë•Œ ë§ˆë‹¤ <tr>íƒœê·¸ë¥¼ ì—´ì–´ì¤€ë‹¤ -->
-				<c:if test="${j%4 == 0}">
+			<c:set var="j" value="0"/>
+			<!-- CarListController¿¡¼­ ³Ñ°Ü¹ÞÀº request¿µ¿ª¾È¿¡ ÀÖ´Â ¹éÅÍ »çÀÌÁî ¸¸Å­ ¹Ýº¹ -->
+			<c:forEach var="v" items="${requestScope.v }">
+				<!-- 4¿­¾¿ ÀÚµ¿Â÷ ÀÌ¹ÌÁö, ³»¿ë »Ñ·ÁÁÖ±â À§ÇØ 4¹ø ¸¶´Ù <tr>ÅÂ±×¸¦ ¿­¾îÁØ´Ù. -->
+				<c:if test="${j%2 == 0 }">
 					<tr align="center">
 				</c:if>
-				<td>
-					<img alt="ìžë™ì°¨ì´ë¯¸ì§€" src="img/${v.carimg }" width="220" height="180"><br/>
-					ì°¨ëŸ‰ëª… : ${v.carname }<br/>
-					ëŒ€ì—¬ê¸ˆì•¡ : ${v.carprice }
-					
-					
-				</td>
-				<c:set var="j" value="${j+1}"/>
+						<td><!-- ¼±ÅÃÇÏ´Â ÀÚµ¿Â÷¸¦ ·»Æ®ÇÏ±âÀ§ÇØ.. ¼­ºí¸´ ¿äÃ»½Ã.. Â÷¹øÈ£ Àü´Þ -->
+							<a href="CarInfoController.do?carno=${v.carno}">
+								<img alt="" src="img/${v.carimg}" width="220" height="180">
+							</a>
+							<p/>
+							Â÷·®¸í : ${v.carname }<br/>
+							´ë¿©±Ý¾× : ${v.carprice }
+						</td>
+				<c:set var="j" value="${j+1 }"/>		
 			</c:forEach>
-			 </tr> --%>
-			 <tr height="70">
-			 	<td colspan="4" align="center">
-			 		ì°¨ëŸ‰ê²€ìƒ‰ : <select name="carcategory">
-									<option value="Small">ì†Œí˜•</option>
-									<option value="Mid">ì¤‘í˜•</option>
-									<option value="Big">ëŒ€í˜•</option>			 		
-			 					</select>
-			 					&nbsp;&nbsp;&nbsp;
-			 					
-			 					<input type="submit" value="ì°¨ëŸ‰ê²€ìƒ‰">
-			 	</td>
-			 </tr>	
-			 					
+					</tr>
+					<tr height="70">
+						<td colspan="4" align="center">
+							Â÷·®°Ë»ö : <select name="carcategory">
+										<option value="Small">¼ÒÇü</option>
+										<option value="Mid">ÁßÇü</option>
+										<option value="Big">´ëÇü</option>	
+									</select>
+									&nbsp;&nbsp;&nbsp;
+									<input type="submit" value="Â÷·®°Ë»ö">
+						</td>
+					</tr>		
 		</table>
-		</form>
+	</form>
+		
+	
 	</center>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
