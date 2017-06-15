@@ -85,7 +85,7 @@ public class CarDAO {
 			String sql = "select * from carlist where carcategory=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, carcategory);
-			System.out.println(sql);
+			
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				bean = new CarListBean();
@@ -148,5 +148,26 @@ public class CarDAO {
 		
 		return bean;
 	}//getOneCar end
+	
+	//렌트 주문현황을 DB에 저장하는 메소드
+	public void insertCarOrder(CarOrderBean cbean) {
+		
+		CarListBean bean = null;
+		int result = 0;
+		try{
+			getCon();
+			String sql="";
+			
+			pstmt = con.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+					
+			
+		}catch(Exception e){
+			System.out.println("insertCarOrder() 메소드 오류 : "+e);
+		}finally{
+			freeResource();
+		}
+		
+	}//end insertCarOrder() 메소드 end
 	
 }//class end

@@ -41,7 +41,12 @@
 					<td align="center" width="200">${bean.carcompany}</td>
 				</tr>
 				<tr>
-					<td align="center" width="200"><input type="button"
+					<td align="center" width="200">
+					<input type="hidden" name="carno" value="${bean.carno}">
+					<input type="hidden" name="carimg" value="${bean.carimg}">
+					<input type="hidden" name="carprice" value="${bean.carprice}">
+					<input type="hidden" name="carcategory" value="${bean.carcategory}">
+					<input type="button"
 						value="이전(CarList.jsp)으로 이동" onclick="location.href='CarListController.do'">
 					</td>
 					<td align="center" width="200"><input type="submit"
