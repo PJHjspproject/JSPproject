@@ -3,9 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%
+	String id = (String)session.getAttribute("id");
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/index.css">
+<link rel="stylesheet" type="text/css" href="css/slide.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/slide.js"></script>
+
 </head>
 <body>
 <div class="frame">
@@ -20,27 +27,25 @@
     <div class="nav">
       <ul class="nav-list">
         <li class="nav-item"><a href="index.jsp" class="nav-link">홈으로</a></li>
-        <li class="nav-item"><a href="" class="nav-link">내 자전거 찾기</a></li>
-        <li class="nav-item"><a href="" class="nav-link">자전거 팁 공유</a></li>
+        <li class="nav-item"><a href="map/map.jsp" class="nav-link">내 자전거 찾기</a></li>
+        <li class="nav-item"><a href="board/board.jsp" class="nav-link">자전거 팁 공유</a></li>
         <li class="nav-item"><a href="" class="nav-link">미정</a></li>
       </ul>
     </div>
     <!-- //nav -->
     <div class="content">
-      <h1>Hello World</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit nam error ipsa commodi exercitationem fugiat praesentium tempore inventore voluptate dolore. Ipsa quisquam nemo enim explicabo aut accusantium ex ab perspiciatis.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit nam error ipsa commodi exercitationem fugiat praesentium tempore inventore voluptate dolore. Ipsa quisquam nemo enim explicabo aut accusantium ex ab perspiciatis.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit nam error ipsa commodi exercitationem fugiat praesentium tempore inventore voluptate dolore. Ipsa quisquam nemo enim explicabo aut accusantium ex ab perspiciatis.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit nam error ipsa commodi exercitationem fugiat praesentium tempore inventore voluptate dolore. Ipsa quisquam nemo enim explicabo aut accusantium ex ab perspiciatis.
-      </p>
+      <div class="slide">
+		<ul class="slide_ul">
+			<li><a href="#"><img src="image/hybrid.jpg" alt="bike"></a></li>
+			<li><a href="#"><img src="image/MTB.jpg" alt="bike"></a></li>
+			<li><a href="#"><img src="image/motor.jpg" alt="bike"></a></li>
+			<li><a href="#"><img src="image/bike.jpg" alt="bike"></a></li>
+		</ul>
+	 </div>
     </div>
+    <%
+    if(id == null){
+    %>
     <div class="nav_left">
 		<form action="Member/loginpro.jsp" id="join" method="post" class="login-form">
       		<input type="text" placeholder="username" name="id" />
@@ -50,15 +55,28 @@
       		<a href="Member/join.jsp">Create an account</a></p>
     	</form>
     </div>
+    <%
+    } else{
+     %>
+    	<div class="nav_left">
+		<%=id %>님 환영합니다.<br/>
+		<a href="Member/logout.jsp">logout</a>
+		
+		 </div> 
+     
+     <%
+    }
+     %>
   </div>
   <!-- //container -->
-    <div class="footer">
-    <p class="copyright">&copy;copy</p>
+  <div class="footer">
+    <p class="copyright">&copy;Where your Bike?</p>
   </div>
   <!-- //footer -->
 </div>
+  
 <!-- //frame -->
-
+</div>
 
 </body>
 </html>
