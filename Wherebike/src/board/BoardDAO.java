@@ -31,7 +31,7 @@ public class BoardDAO {
 		// 삼총사
 		//Connection con = null;
 		Context init = new InitialContext();
-		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/jspbeginner");
+		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/wherebike");
 		con = ds.getConnection();
 
 		return con;

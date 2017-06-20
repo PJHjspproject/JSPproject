@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+
+#list {
+	width: 400px;
+	border: 1px solid orange;
+	/*겉테두리와 안테두리를 하나로 합쳐준다. */
+	border-collapse: collapse;
+}
+
+/* 누구 자식인지 반드시 명시해 준다.*/
+#list td, #list th {
+	font-size: 12px;
+	border: 1px solid orange;
+	padding: 3px;
+}
+
+#list th {
+	background-color: #cc99cc;
+}
+
+#list .td1 {
+	width: 3px;
+	text-align: center;
+}
+
+#list .td2 {
+	width: 150px;
+	text-align: center;
+}
+
+#list .td3 {
+	width: 50px;
+	text-align: center;
+}
+
+#list .td4 {
+	width: 50px;
+	text-align: center;
+}
+
+#list .td5 {
+	width: 5px;
+	text-align: center;
+}
+
+/*부모 자식 관계 */
+#list .altRow {
+	background-color: #e0f0b5;
+}
