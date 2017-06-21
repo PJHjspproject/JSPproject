@@ -4,6 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -55,10 +58,10 @@
 						<c:if	test="${v.carbabyseat==0 }">미사용</c:if>
 					</td>
 					<td align="center" width="100">
-						<button onclick="location.href='#'">수정</button>
+						<button onclick="location.href='CarConfirmUpdateController.do?orderid=${v.orderid}&carimg=${v.carimg }'">수정</button>
 					</td>
 					<td align="center" width="100">
-						<button onclick="location.href='#'">삭제</button>
+						<button onclick="location.href='location.href='CarConfirmDelete.do?orderid=${v.orderid}'">삭제</button>
 					</td>
 				</tr>
 			</c:forEach>

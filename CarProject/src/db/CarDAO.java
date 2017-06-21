@@ -149,6 +149,44 @@ public class CarDAO {
 		return bean;
 	}//getOneCar end
 	
+	public CarConfirmBean getOneOrder(int orderid){
+		
+		CarConfirmBean bean = null;
+
+		try{
+			getCon();
+			String sql = "select * from carorder where orderid=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, orderid);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				bean = new CarConfirmBean();
+				bean.setOrderid(rs.getInt(orderid));
+				bean.setCarqty(rs.getInt(3));
+				bean.setCarreserveday(rs.getInt(4));
+				bean.setCarbegindate(rs.getString(5));
+				bean.setCarins(rs.getInt(6));
+				bean.setCarwifi(rs.getInt(7));
+				bean.setCarnavi(rs.getInt(8));
+				bean.setCarbabyseat(rs.getInt(9));
+				
+
+				
+			}
+			
+		}catch(Exception e){
+			System.out.println("getOneOrder() 메소드 오류 : "+e);
+		}finally{
+			freeResource();
+		}
+		
+		
+		
+		return bean;
+		
+	}
+	
 	//렌트 주문현황을 DB에 저장하는 메소드
 	public void insertCarOrder(CarOrderBean cbean) {
 		
