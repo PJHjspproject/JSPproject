@@ -7,11 +7,41 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<!-- 메인 로그 이미지 추가 클릭시 메인페이지(CarMain.jsp)로 이동-->
-	<a href="CarMain.jsp">
-	<img src="img/RENT.jpg" width="300" height="80" border="0">
-	</a>
-	
+	<div id="logo">
+	<a href="CarMain.jsp"><img src="img/RENT.jpg" width="300" height="80" border="0"></a>
+	</div>
+	<!-- 로그인 |회원가입 만들기  -->
+	<table width="1000" height="5">
+		<tr>
+			<td align="right" colspan="5">
+				<%
+					String id = (String)session.getAttribute("id");
+				
+					if(id==null){
+				%>
+					<div id="login">
+						<a href="./MemberLogin.me">login</a>| 
+						<a href="./MemberJoin.me">Join</a>
+					</div>	
+						
+						
+				<%
+					}else{
+				%>	
+					<div id="login">
+						<%=id %>님 환영!&nbsp;&nbsp;
+						<a href="./MemberLogout.me">Logout</a>| 
+						<a href="./MemberJoin.me">Join</a>
+					</div>	
+				<%	
+					}
+				%>
+				
+			</td>
+		</tr>
+	</table>
 	<!-- 메뉴 만들기 -->
 	<table width="1000" background="img/aa.jpg" height="5">
 		<tr align="center" bgcolor="red">

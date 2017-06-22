@@ -62,7 +62,7 @@ public class CarDAO {
 			check =1;		
 			
 		}catch(Exception e){
-			System.out.println("insertCarOrder() 메소드 오류 : "+e);
+			System.out.println("carOrderUpdater() 메소드 오류 : "+e);
 		}finally{
 			freeResource();
 		}
@@ -73,6 +73,28 @@ public class CarDAO {
 	}//end carOrderUpdater() 메소드 end
 	
 	
+	
+	/* 차량 예약현황 삭제 메소드 */
+	public int carOrderDelete(int orderid, String memberpass) {
+
+		int result = 0;
+		String sql = "";
+		try {
+			getCon();
+			sql = "delete from carorder where orderid=? and memberpass=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, orderid);
+			pstmt.setString(2, memberpass);
+			result = pstmt.executeUpdate();
+						
+		} catch (Exception e) {
+			System.out.println("carOrderDelete() 메소드 오류 : " + e);
+		} finally {
+			freeResource();
+		}
+
+		return result;
+	}
 	
 	/*전체 차량 검색 메소드*/
 	public Vector<CarListBean> getAllCarlist() {
@@ -300,6 +322,7 @@ public class CarDAO {
 			
 		return v;
 	}//end getAllCarOrder() 메소드 end
+
 	
 	
 

@@ -61,7 +61,7 @@
 						<button onclick="location.href='CarConfirmUpdateController.do?orderid=${v.orderid}&carimg=${v.carimg }'">수정</button>
 					</td>
 					<td align="center" width="100">
-						<button onclick="location.href='location.href='CarConfirmDelete.do?orderid=${v.orderid}'">삭제</button>
+						<button onclick="location.href='CarMain.jsp?center=CarConfirmDelete.jsp?orderid=${v.orderid}'">삭제</button>
 					</td>
 				</tr>
 			</c:forEach>
