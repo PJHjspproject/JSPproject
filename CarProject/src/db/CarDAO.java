@@ -38,6 +38,42 @@ public class CarDAO {
 		if (con != null)try {con.close();} catch (Exception econ) { System.out.println("con 객체 close 오류"+econ);}
 	}//freeResource() end
 	
+	
+	/*차량예약 수정 메소드*/
+	public int carOrderUpdate(CarOrderBean cbean) {
+		int check =0;
+		CarListBean bean = null;
+		try{
+			getCon();
+			String sql="update carorder set carreserveday=?,"
+					+" carbegindate=?, carins=?, carqty=?, carwifi=?, carbabyseat=? where orderid=? and memberpass=? ";
+			pstmt = con.prepareStatement(sql);
+			/*pstmt.set.. DB저장하기*/
+			
+			pstmt.setInt(1, cbean.getCarreserveday());
+			pstmt.setString(2, cbean.getCarbegindate());
+			pstmt.setInt(3, cbean.getCarins());
+			pstmt.setInt(4, cbean.getCarqty());
+			pstmt.setInt(5, cbean.getCarwifi());
+			pstmt.setInt(6, cbean.getCarbabyseat());
+			pstmt.setInt(7, cbean.getOrderid());
+			pstmt.setString(8, cbean.getMemberpass());
+			pstmt.executeUpdate();
+			check =1;		
+			
+		}catch(Exception e){
+			System.out.println("insertCarOrder() 메소드 오류 : "+e);
+		}finally{
+			freeResource();
+		}
+		
+		return check;
+		
+		
+	}//end carOrderUpdater() 메소드 end
+	
+	
+	
 	/*전체 차량 검색 메소드*/
 	public Vector<CarListBean> getAllCarlist() {
 		String sql="";
@@ -162,7 +198,7 @@ public class CarDAO {
 			
 			if(rs.next()){
 				bean = new CarConfirmBean();
-				bean.setOrderid(rs.getInt(orderid));
+				bean.setOrderid(orderid);
 				bean.setCarqty(rs.getInt(3));
 				bean.setCarreserveday(rs.getInt(4));
 				bean.setCarbegindate(rs.getString(5));
@@ -264,5 +300,9 @@ public class CarDAO {
 			
 		return v;
 	}//end getAllCarOrder() 메소드 end
+	
+	
+
+	
 	
 }//class end

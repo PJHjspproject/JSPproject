@@ -9,7 +9,7 @@
 <body>
 	<center>
 		<h1>차량 주문 수정 페이지</h1>
-		<form action="CarConfirmUpdateController.do" method="post">
+		<form action="CarConfirmUpdateProcController.do?orderid=${requestScope.dto.orderid}" method="post">
 			<table width="1000" border="0" align="center">
 				<tr align="center">
 					<td rowspan="7" width="600">
