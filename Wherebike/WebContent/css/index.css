@@ -3,10 +3,27 @@
 body {
   font:14px/1.8 Arial, Helvetica, sans-serif;
 }
-a{
-	text-decoration: none;
+
+div.nav_left a:link
+{
+	text-decoration:none;
+	color: maroon;
 }
-a:link,a:visited,a:active,a:hover {text-decoration:none;}
+div.nav_left a:visited
+{
+	text-decoration:none;
+	color: maroon;
+}
+div.nav_left a:active
+{
+	text-decoration:none;
+	color : red;
+}
+div.nav_left a:hover 
+{
+	text-decoration:none;
+	color: orange;
+}
 .frame {
   width: 1000px;
   margin: 0 auto;
