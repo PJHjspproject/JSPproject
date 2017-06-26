@@ -13,7 +13,11 @@
 	border: 1px solid orange;
 	padding: 3px;
 }
-
+table{
+	width: 400px;
+	
+	
+}
 #list th {
 	background-color: #cc99cc;
 }

@@ -1,3 +1,4 @@
+<%@page import="member.MemberDto"%>
 <%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -8,12 +9,13 @@
 	String password = request.getParameter("password");
 	
 	MemberDAO dao = new MemberDAO();
-
+	MemberDto dto = new MemberDto();
 	int logincheck = dao.userCheck(id, password);
 	if(logincheck == 1){
 		//로그인화면에서 입력한 아이디를 세션영역에 저장
 		session.setAttribute("id", id);	
-		//index.jsp로 이동
+		session.setAttribute("index", dto.getIndex());
+;		//index.jsp로 이동
 		response.sendRedirect("../index.jsp");
 			
 	}else if(logincheck == 0){// 비밀번호 틀림!!

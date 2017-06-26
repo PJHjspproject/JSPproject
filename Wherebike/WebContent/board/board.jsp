@@ -67,7 +67,7 @@
 			<div class="content">
 				<h3>게시판 리스트</h3>
 
-				<table id="list">
+				<table id="list" width="400px">
 					<tr>
 						<th>번호</th>
 						<th>제목</th>

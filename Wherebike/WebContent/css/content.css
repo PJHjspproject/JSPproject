@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
-table #notice {
-    width: 670px;
+.notice {
+    
     border-collapse: collapse;
 }
 
@@ -20,7 +20,12 @@ tr {
     vertical-align: inherit;
     border-color: inherit;
 }
-table#notice td {
+tr .con{
+	height: 200px;
+	
+}
+.notice td {
+	width: 670px;
     text-align: center;
     padding: 6px 0;
     border-bottom-width: 1px;

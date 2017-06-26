@@ -3,7 +3,7 @@ package member;
 import java.sql.Timestamp;
 
 public class MemberDto {
-	
+	private int index;
 	private String id;
 	private String password;
 	private String name;
@@ -13,6 +13,13 @@ public class MemberDto {
 	private String mail2;
 	private String phonenum;
 	private Timestamp reg;
+	
+	public int getIndex() {
+		return index;
+	}
+	public void setIndex(int index) {
+		this.index = index;
+	}
 	public String getId() {
 		return id;
 	}

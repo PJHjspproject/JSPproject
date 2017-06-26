@@ -5,6 +5,9 @@
 <head>
 <%
 	String id = (String)session.getAttribute("id");
+	
+	
+	
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -61,10 +64,16 @@
      %>
     	<div class="nav_left">
 		<%=id %>님 환영합니다.<br/>
-		<a href="Member/logout.jsp">logout</a>
-		
-		 </div> 
-     
+		<%
+			id = (String)session.getAttribute("id");
+		System.out.println(id);
+		%>
+		<a href="Member/logout.jsp">logout</a>&nbsp;&nbsp;&nbsp;
+		<a href="Member/updatemember.jsp">회원정보수정</a>
+		 </div>
+     <%
+     	
+     %>
      <%
     }
      %>
@@ -77,7 +86,7 @@
 </div>
   
 <!-- //frame -->
-</div>
+
 
 </body>
 </html>

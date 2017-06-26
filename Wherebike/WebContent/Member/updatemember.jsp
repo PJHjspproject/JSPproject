@@ -1,48 +1,34 @@
+<%@page import="member.MemberDto"%>
+<%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>회원가입 화면</title>
+<%
+	String id = (String)session.getAttribute("id");
+	System.out.println(id);
+	MemberDAO dao = new MemberDAO();
+	MemberDto dto = dao.getMember(id);
+	String newid = dto.getId();
+	String name = dto.getName();
+	String password = dto.getPassword();
+	String phonenum = dto.getPhonenum();
+	int age = dto.getAge();
+	
+	
+
+%>
 
 <!-- css 파일 분리 -->
 <link rel="stylesheet" type="text/css" href="../css/index.css">
 <link rel="stylesheet" type="text/css" href="../css/join.css">
 
 <script type="text/javascript">
-
+    
         // 필수 입력정보인 아이디, 비밀번호가 입력되었는지 확인하는 함수
-        function checkValue(){
-        	
-        	//아이디 유효성 검사 (영문소문자, 숫자만 허용)
-    		for (i=0;i<document.userInfo.id.value.length ;i++ )
-    		{
-    		 ch=document.userInfo.id.value.charAt(i)
-    		  if (!(ch>='0' && ch<='9') && !(ch>='a' && ch<='z'))
-    		  {
-    		  alert ("아이디는 소문자, 숫자만 입력가능합니다.")
-    		  document.userInfo.id.focus()
-    		  document.userInfo.id.select()
-    		  return false;
-    		  }
-    		}
-    		//아이디에 공백 사용하지 않기
-    		if (document.userInfo.id.value.indexOf(" ")>=0)
-    		{
-    		 alert("아이디에 공백을 사용할 수 없습니다.")
-    		 document.userInfo.id.focus()
-    		 document.userInfo.id.select()
-    		 return false;
-    		}
-    		//아이디 길이 체크 (6~12자)
-    		if (document.userInfo.id.value.length<6 || document.userInfo.id.value.length>12)
-    		{
-    		 alert ("아이디를 6~12자까지 입력해주세요.")
-    		 document.userInfo.id.focus()
-    		 document.userInfo.id.select()
-    		 return false;
-    		}
-        	
+        function checkValue()
+        {
             if(!document.userInfo.id.value){
                 alert("아이디를 입력하세요.");
                 return false;
@@ -74,16 +60,14 @@
 		<div class="container">
 		<jsp:include page="../inc/nav.jsp"/>
 			<div class="content">
-				<form method="post" action="JoinPro.jsp" name="userInfo"
+				<form method="post" action="updatepro.jsp" name="userInfo"
 					onsubmit="return checkValue()">
-					<b><font size="6" color="gray">회원가입</font></b>
+					<b><font size="6" color="gray">회원수정</font></b>
 					<table>
 						<tr>
 							<td id="title">아이디</td>
-							<td>
-								<input type="text" name="id" maxlength="50"> 
-								
-							</td>
+							<td><input type="text" name="id" maxlength="50"  value="<%=newid%>" readonly="readonly"> <input
+								type="button"></td>
 						</tr>
 
 						<tr>
@@ -100,7 +84,7 @@
 
 						<tr>
 							<td id="title">이름</td>
-							<td><input type="text" name="name" maxlength="50"></td>
+							<td><input type="text" name="name" maxlength="50" value="<%=name%>"></td>
 						</tr>
 
 						<tr>
@@ -111,7 +95,7 @@
 
 						<tr>
 							<td id="title">나이</td>
-							<td><input type="text" name="age" /></td>
+							<td><input type="text" name="age" value="<%=age %>" /></td>
 						</tr>
 
 						<tr>
@@ -127,7 +111,7 @@
 
 						<tr>
 							<td id="title">휴대전화</td>
-							<td><input type="text" name="phonenum"/></td>
+							<td><input type="text" name="phonenum" value="<%=phonenum%>"/></td>
 						</tr>
 						<tr>
 							<td id="title">주소</td>
@@ -137,7 +121,7 @@
 <input type="text" id="jibunAddress" placeholder="지번주소" name="JibunAddr">
 <span id="guide" style="color:#999"></span></td>
 
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"/>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
@@ -192,8 +176,9 @@
 </script>
 						</tr>
 					</table>
-					<br> <input type="submit" value="가입" /> <input type="reset"
-						value="취소">
+					<br> 
+					<input type="submit" value="수정하기" /> 
+					<input type="reset" value="취소">
 				</form>
 			</div>
 		</div>

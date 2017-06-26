@@ -7,12 +7,15 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.sun.org.apache.regexp.internal.recompile;
+
+import board.BoardDto;
 
 //데이터베이스와 연결하여 데이터베이스 작업 하는 클래스
 public class MemberDAO {
@@ -139,6 +142,71 @@ public class MemberDAO {
 
 		return check;
 	}
+	public MemberDto getMember(String id){
+		
+		String sql="";
+		MemberDto mdto = null;
+		try{
+			con = getConnection();
+			sql = "select * from member where id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+					
+			
+			while(rs.next()){
+				mdto = new MemberDto();
+				mdto.setId(rs.getString("id"));
+				mdto.setPassword(rs.getString("password"));
+				mdto.setName(rs.getString("name"));
+				mdto.setGender(rs.getString("gender"));
+				mdto.setPhonenum(rs.getString("phonenum"));
+				mdto.setAge(rs.getInt("age"));
+			}
+		}catch(Exception e){
+			System.out.println("getMember 메서드 오류 :"+e);
+		}finally{
+			freeResource();
+		}
+		
+		return mdto;
+		
+	}
+	public int updateMember(MemberDto dto){
+		int check =0;
+		String sql = "";
+		
+		try{
+			con = getConnection();
+			sql = "select * from member where id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getId());
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				check =1;
+				sql = "update member set name=?,password=?,"
+						+"age=?,email=?,phonenum=? where id = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, dto.getName());
+				pstmt.setString(2, dto.getPassword());
+				pstmt.setInt(3, dto.getAge());
+				pstmt.setString(4, dto.getMail1()+"@"+dto.getMail2());
+				pstmt.setString(5, dto.getPhonenum());
+				pstmt.setString(6, dto.getId());
+				pstmt.executeUpdate();
+			}else{
+				check=0;
+			}
+			
+		}catch(Exception e){
+			System.out.println("updateMember 메서드 오류 :"+e);
+		}finally{
+			freeResource();
+		}
+			
+		return check;
+	}
+	
 
 }
 

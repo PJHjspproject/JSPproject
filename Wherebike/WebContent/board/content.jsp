@@ -78,7 +78,7 @@
 			<!-- //nav -->
 			<div class="content">
 				<h1>Notice Content</h1>
-	<table id="notice">
+	<table class="notice">
 		<tr>
 			<td class="writeMenubar">글 번호</td>
 			<td><%=DBnum %></td>
@@ -95,8 +95,8 @@
 			<td class="writeMenubar">글 제목</td>
 			<td colspan="3" ><%=DBSubject %></td>
 		</tr>
-		<tr>
-			<td >글 내용</td>
+		<tr class="con">
+			<td> 글 내용</td>
 			<td colspan="3" class="writebox"><%=DBContent %></td>
 		</tr>	
 	</table>
