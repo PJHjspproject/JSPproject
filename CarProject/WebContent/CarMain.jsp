@@ -8,6 +8,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>오빠차 쇼핑몰</title>
+<style type="text/css">
+	/*오른쪽 밖여백 20 64 0 0*/	
+	#login{
+		margin: 20px 64px 0 0;
+		font-size: 12px;
+	}
+	/*하이퍼링크 밑줄 없음 글자색#333*/
+	#login a{
+		text-decoration: none;
+		color: #333;
+	}
+	#login a:HOVER {
+	color :#F90;
+	}
+	/*왼쪽정렬 너비를 256 픽셀로 바깥여백을 60px 0 0 40px*/ 
+	#logo{
+		float: left;
+		margin: 60px 0 0 40px;
+	}
+</style>
 </head>
 <body>
 

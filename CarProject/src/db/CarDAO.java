@@ -38,6 +38,64 @@ public class CarDAO {
 		if (con != null)try {con.close();} catch (Exception econ) { System.out.println("con 객체 close 오류"+econ);}
 	}//freeResource() end
 	
+	
+	/*차량예약 수정 메소드*/
+	public int carOrderUpdate(CarOrderBean cbean) {
+		int check =0;
+		CarListBean bean = null;
+		try{
+			getCon();
+			String sql="update carorder set carreserveday=?,"
+					+" carbegindate=?, carins=?, carqty=?, carwifi=?, carbabyseat=? where orderid=? and memberpass=? ";
+			pstmt = con.prepareStatement(sql);
+			/*pstmt.set.. DB저장하기*/
+			
+			pstmt.setInt(1, cbean.getCarreserveday());
+			pstmt.setString(2, cbean.getCarbegindate());
+			pstmt.setInt(3, cbean.getCarins());
+			pstmt.setInt(4, cbean.getCarqty());
+			pstmt.setInt(5, cbean.getCarwifi());
+			pstmt.setInt(6, cbean.getCarbabyseat());
+			pstmt.setInt(7, cbean.getOrderid());
+			pstmt.setString(8, cbean.getMemberpass());
+			pstmt.executeUpdate();
+			check =1;		
+			
+		}catch(Exception e){
+			System.out.println("carOrderUpdater() 메소드 오류 : "+e);
+		}finally{
+			freeResource();
+		}
+		
+		return check;
+		
+		
+	}//end carOrderUpdater() 메소드 end
+	
+	
+	
+	/* 차량 예약현황 삭제 메소드 */
+	public int carOrderDelete(int orderid, String memberpass) {
+
+		int result = 0;
+		String sql = "";
+		try {
+			getCon();
+			sql = "delete from carorder where orderid=? and memberpass=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, orderid);
+			pstmt.setString(2, memberpass);
+			result = pstmt.executeUpdate();
+						
+		} catch (Exception e) {
+			System.out.println("carOrderDelete() 메소드 오류 : " + e);
+		} finally {
+			freeResource();
+		}
+
+		return result;
+	}
+	
 	/*전체 차량 검색 메소드*/
 	public Vector<CarListBean> getAllCarlist() {
 		String sql="";
@@ -149,6 +207,44 @@ public class CarDAO {
 		return bean;
 	}//getOneCar end
 	
+	public CarConfirmBean getOneOrder(int orderid){
+		
+		CarConfirmBean bean = null;
+
+		try{
+			getCon();
+			String sql = "select * from carorder where orderid=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, orderid);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				bean = new CarConfirmBean();
+				bean.setOrderid(orderid);
+				bean.setCarqty(rs.getInt(3));
+				bean.setCarreserveday(rs.getInt(4));
+				bean.setCarbegindate(rs.getString(5));
+				bean.setCarins(rs.getInt(6));
+				bean.setCarwifi(rs.getInt(7));
+				bean.setCarnavi(rs.getInt(8));
+				bean.setCarbabyseat(rs.getInt(9));
+				
+
+				
+			}
+			
+		}catch(Exception e){
+			System.out.println("getOneOrder() 메소드 오류 : "+e);
+		}finally{
+			freeResource();
+		}
+		
+		
+		
+		return bean;
+		
+	}
+	
 	//렌트 주문현황을 DB에 저장하는 메소드
 	public void insertCarOrder(CarOrderBean cbean) {
 		
@@ -180,5 +276,56 @@ public class CarDAO {
 		}
 		
 	}//end insertCarOrder() 메소드 end
+	
+	/*예약화인페이지에서 렌트카 에약시 작성한 전화번호와 패스워드에 해당하는 예약한 주문정보를 모두 검색해 가져오는 메소드 (조건에맞아야함)*/
+	
+	public Vector<CarConfirmBean> getAllCarOrder(String memberphone, String memberpass) {
+		
+		Vector<CarConfirmBean> v = new Vector<CarConfirmBean>();
+		CarConfirmBean bean = null;
+		String sql="";
+		try{
+			getCon();
+			//텐트 예약한 날짜가 현재날짜보다 크고 렌트 예약시 작성한 비회원 전화번호와 패스워드에 해당하는 렌트 예약정보를 검색
+			//carorder테이블과 carlist 테이블을 natural조인하여 검색(select * from carorder natural join carlist)
+			//select * 와같이 별도의 컬럼 순서를 지정하지않으면 natural조인의 기준이 되는 컬럼들이 다른컬럼보다 먼저 출력된다.
+			//이때 natural Join은 join에 사용된  같은 이름을 컬럼을 중복출력하지않고 하나로 처리된다.
+			sql="select * from carorder natural join carlist where "
+			+"now() <  str_to_date(carbegindate , '%Y-%m-%d') and memberphone=? and memberpass=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memberphone);
+			pstmt.setString(2, memberpass);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				bean = new CarConfirmBean();
+				bean.setOrderid(rs.getInt(2));
+				bean.setCarqty(rs.getInt(3));
+				bean.setCarreserveday(rs.getInt(4));
+				bean.setCarbegindate(rs.getString(5));
+				bean.setCarins(rs.getInt(6));
+				bean.setCarwifi(rs.getInt(7));
+				bean.setCarnavi(rs.getInt(8));
+				bean.setCarbabyseat(rs.getInt(9));
+				bean.setCarname(rs.getString(12));
+				bean.setCarprice(rs.getInt(14));
+				bean.setCarimg(rs.getString(17));
+				
+				v.add(bean);
+			}
+			
+			
+		}catch(Exception e){
+			System.out.println(" getAllCarOrder() 메소드 오류 : "+e);
+		}finally{
+			freeResource();
+		}
+			
+		return v;
+	}//end getAllCarOrder() 메소드 end
+
+	
+	
+
+	
 	
 }//class end
