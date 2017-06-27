@@ -36,6 +36,8 @@ public class BoardDAO {
 
 		return con;
 	}
+	
+
 	public void reInsertBoard(BoardDto dto){
 		
 		String sql = "";
@@ -219,32 +221,7 @@ public class BoardDAO {
 		return result;
 	}
 	
-	public int getBoard(){
-		
-		int count=0;
-		String sql="";
-		
-		try{
-			con =getConnection();
-			sql="select count(*) from board";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if(rs.next()){
-				count=rs.getInt(1);
-			}else{
-				count=0;
-			}
-			
-		}catch(Exception e){
-			System.out.println("getCountBoard 메소드 에러!!!");
-			e.printStackTrace();
-		}finally{
-			freeResource();
-		}
-		
-		
-		return count;
-	}
+
 	//글 상세보기시 조회수 +1 증가시키는 메소드
 	public void updateReadCount(int num){
 		
@@ -349,7 +326,8 @@ public class BoardDAO {
 		
 		return arr;
 	}
-
+	
+	
 	public int getBoardCount(){
 		
 		int count=0;
@@ -385,6 +363,7 @@ public class BoardDAO {
 		
 		try{
 			con = getConnection();
+			
 			sql = "select * from board";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();

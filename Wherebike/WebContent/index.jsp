@@ -66,7 +66,7 @@
 		<%=id %>님 환영합니다.<br/>
 		<%
 			id = (String)session.getAttribute("id");
-		System.out.println(id);
+		
 		%>
 		<a href="Member/logout.jsp">logout</a>&nbsp;&nbsp;&nbsp;
 		<a href="Member/updatemember.jsp">회원정보수정</a>

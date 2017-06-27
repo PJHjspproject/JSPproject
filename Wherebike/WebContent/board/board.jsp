@@ -11,9 +11,10 @@
 <link rel="stylesheet" type="text/css" href="../css/index.css">
 <link rel="stylesheet" type="text/css" href="../css/board.css">
 <%
-
-	
-	//하나의 화면 마다 보여줄 글개수 15
+	request.setCharacterEncoding("UTF-8");
+	String search = request.getParameter("search");
+	String searchtype = request.getParameter("searchtype");
+	//하나의 화면 마다 보여줄 글개수 5
 	int pageSize = 5;
 	
 	//현재 보여질(선택한) 페이지번호 가져오기
@@ -30,7 +31,7 @@
 	
 	
 	/*각페이지 마다 위쪽에 첫번쨰로 보여질 시작 글번호 구하기*/
-	//(현재 보여질 페이지번호 - 1) * 한페이지당 보여질 글개수 15
+	//(현재 보여질 페이지번호 - 1) * 한페이지당 보여질 글개수 5
 	int startRow = (currentPage - 1) * pageSize;
 	
 	
@@ -47,7 +48,8 @@
 	if(count > 0){
 		//글목록 가져오기 
 		//getBoardList(각페이지마다 맨위에 첫번쨰로 보여질 시작글번호, 한페이지당 보여줄 글개수);
-		arrayList = boardDAO.getBoardList(startRow, pageSize);		
+		//arrayList = boardDAO.getBoardList(startRow, pageSize);	
+		arrayList = boardDAO.getBoardList(startRow, pageSize);
 	}
 	
 	//날짜 포맷 객체 생성
@@ -56,15 +58,18 @@
 %>
 
 </head>
+
 <body>
+
 	<div class="frame">
-		<jsp:include page="../inc/top.jsp" />
+		<jsp:include page="../inc/top.jsp"/>
 
 		<!-- //header -->
 		<div class="container">
 			<jsp:include page="../inc/nav.jsp" />
 			<!-- //nav -->
 			<div class="content">
+			<center>
 				<h3>게시판 리스트</h3>
 
 				<table id="list" width="400px">
@@ -124,19 +129,19 @@
 					//세션 값이 있으면  글쓰기 버튼 보이게 설정
 					if (id != null) {
 				%>
-				<div id="table_search" style="float: left">
-					<input type="button" value="글쓰기" class="btn"
-						onclick="location.href='write.jsp'">
-				</div>
+		
 
 				<%
 					}
 				%>
-				<div id="table_search" style="float: left">
-					<input type="text" name="search" class="input_box"> <input
-						type="button" value="search" class="btn">
-
+				
+				
+				<div id="table_search" align="center">
+				<input type="button" value="글쓰기" class="btn"
+						onclick="location.href='write.jsp'">
 				</div>
+				
+				
 				<div class="clear"></div>
 				<div id="page_control">
 					<%
@@ -191,7 +196,7 @@
 						} //바깥 if문
 					%>
 				</div>
-
+				</center>
 				<!-- //container -->
 
 			</div>
