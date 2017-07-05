@@ -1,62 +1,82 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
 <body>
 	<center>
-		<img src="img/cis.jpg" border="0">
-		<!-- ìë™ì°¨ ì˜ˆì•½ì‹œ ì˜µì…˜ì„ íƒí•˜ê¸° ëˆ„ë¥¼ì‹œ ì˜µì…˜ ì„ íƒí•˜ê¸° í˜ì´ì§€ë¡œ ì´ë™ -->
-		<form action="CarMain.jsp?center=CarOption.jsp" method="post">
-			<table width="1000" border="0">
-				<tr align="center">
-					<td rowspan="6" width="600"><img src="img/${bean.carimg}"
-						width="500" border="0"></td>
-					<td align="center" width="200">ì°¨ëŸ‰ì´ë¦„</td>
-					<td align="center" width="200">${bean.carname}</td>
-				</tr>
-				<tr>
-					<td align="center" width="200">ëŒ€ì—¬ìˆ˜ëŸ‰</td>
-					<td align="center" width="200"><select name="carqty">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td align="center" width="200">ì°¨ëŸ‰ë¶„ë¥˜</td>
-					<td align="center" width="200">${bean.carcategory }</td>
-				</tr>
-				<tr>
-					<td align="center" width="200">ëŒ€ì—¬ê¸ˆì•¡</td>
-					<td align="center" width="200">${bean.carprice }</td>
-				</tr>
-				<tr>
-					<td align="center" width="200">ì œì¡°íšŒì‚¬</td>
-					<td align="center" width="200">${bean.carcompany}</td>
-				</tr>
-				<tr>
-					<td align="center" width="200">
-					<input type="hidden" name="carno" value="${bean.carno}">
-					<input type="hidden" name="carimg" value="${bean.carimg}">
-					<input type="hidden" name="carprice" value="${bean.carprice}">
-					<input type="hidden" name="carcategory" value="${bean.carcategory}">
-					<input type="button"
-						value="ì´ì „(CarList.jsp)ìœ¼ë¡œ ì´ë™" onclick="location.href='CarListController.do'">
-					</td>
-					<td align="center" width="200"><input type="submit"
-						value="ì˜µì…˜ì„ íƒí•˜ê¸°"></td>
-				</tr>
-			</table>
-		</form>
-		<p>
-		<b>ì°¨ëŸ‰ ì •ë³´ ìƒì„¸ ë³´ê¸°</b>
-		${bean.carinfo }
+		<img alt="" src="img/cis.jpg" border="0">
+	<!-- ÀÚµ¿Â÷ ¿¹¾à½Ã ¿É¼Ç¼±ÅÃÇÏ±â ¹öÆ°À» ´­·¶À»¶§.. ¿É¼Ç ¼±ÅÃ ÆäÀÌÁö·Î ¿äÃ»! -->
+	<form action="CarMain.jsp?center=CarOption.jsp" method="post">
+		<table width="1000" border="0">
+			<tr align="center">
+				<td rowspan="6" width="600">
+					<img alt="" src="img/${bean.carimg}" width="500" border="0">
+				</td>
+				<td align="center" width="200">
+					Â÷·®ÀÌ¸§
+				</td>
+				<td align="center" width="200">
+					${bean.carname}
+				</td> 
+			</tr>
+			<tr>
+				<td align="center" width="200">´ë¿©¼ö·®</td>
+				<td align="center" width="200">
+					<select name="carqty">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" width="200">Â÷·®ºĞ·ù</td>
+				<td align="center" width="200">
+					${requestScope.bean.carcategory }
+				</td>
+			</tr>
+			<tr>
+				<td align="center" width="200">´ë¿©±İ¾×</td>
+				<td align="center" width="200">
+					${bean.carprice }
+				</td>
+			</tr>			
+			<tr>
+				<td align="center" width="200">Á¦Á¶È¸»ç</td>
+				<td align="center" width="200">
+					${bean.carcompany }
+				</td>
+			</tr>			
+			<tr>
+				<td align="center" width="200">
+					<input type="hidden" name="carno" value="${bean.carno }">
+					<input type="hidden" name="carimg" value="${bean.carimg }">
+					<input type="hidden" name="carprice" value="${bean.carprice }">
+					
+					
+					<input type="button" value="ÀÌÀü(CarList.jsp·ÎÀÌµ¿)" 
+					onclick="location.href='CarListController.do'">
+				</td>
+				<td align="center" width="200">
+					<input type="submit" value="¿É¼Ç¼±ÅÃÇÏ±â">
+				</td>
+			</tr>			
+		</table>
+	</form>	
+	<p>
+	<b>Â÷·® Á¤º¸ »ó¼¼ º¸±â </b>
+	${bean.carinfo}
 	</center>
+
+ 
 </body>
 </html>
+
+
+

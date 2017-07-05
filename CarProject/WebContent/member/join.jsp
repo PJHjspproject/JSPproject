@@ -12,7 +12,6 @@
 
 <!-- 본문내용 -->
 <center>
-
 		<article>
 			<h1>Join Us</h1>
 			<%--MemberFrontController서블릿에.. 회원가입 처리 요청! --%>

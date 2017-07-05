@@ -1,48 +1,57 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ì˜ˆì•½í•˜ê¸°</title>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
 </head>
 <body>
 	<center>
-		<!-- ìžì£¼ ì‚¬ìš©ë˜ëŠ” ì°¨ëŸ‰ ì´ë¯¸ì§€ 3ê°œë¥¼ ë¿Œë ¤ì£¼ê¸° -->
+		<!-- ÀÚÁÖ »ç¿ëµÇ´Â Â÷·® ÀÌ¹ÌÁö 3°³¸¦ È­¸é¿¡ ³ªÅ¸³»ÀÚ -->
 		<table width="1000" border="0">
 			<tr>
-				<td align="center" width="333"><a
-					href="CarMain.jsp?center=CarEvent.jsp"> <img
-						src="img/lfsonata.jpg" width="280" border="0">
-				</a></td>
-				<td align="center" width="333"><a
-					href="CarMain.jsp?center=CarEvent.jsp"> <img src="img/k5.jpg"
-						width="280" border="0">
-				</a></td>
-				<td align="center" width="333"><a
-					href="CarMain.jsp?center=CarEvent.jsp"> <img
-						src="img/avante.jpg" width="280" border="0">
-				</a></td>
+				<td align="center" width="333">
+					<a href="CarMain.jsp?center=CarEvent.jsp">
+						<img src="img/lfsonata.jpg" width="280" border="0">
+					</a>
+				</td>
+				<td align="center" width="333">
+					<a href="CarMain.jsp?center=CarEvent.jsp">
+						<img src="img/k5.jpg" width="280" border="0">
+					</a>
+				</td>
+				<td align="center" width="333">
+					<a href="CarMain.jsp?center=CarEvent.jsp">
+						<img src="img/avante.jpg" width="280" border="0">
+					</a>
+				</td>
 			</tr>
 		</table>
-		<!-- ì†Œí˜•,ì¤‘í˜•,ëŒ€í˜•ì„ ê¸°ì¤€ìœ¼ë¡œ ì°¨ëŸ‰ì„ ê²€ìƒ‰í•´ì„œê²°ê³¼ë¥¼ í™”ë©´ì— ë‚˜íƒ€ë‚´ê¸° ìœ„í•œ ë¶€ë¶„ -->
-		<!-- <ì°¨ëŸ‰ ì¢…ë¥˜ ë³´ê¸°> ì´ë¯¸ì§€  -->
-		<h1>
-			<img alt="ì°¨ëŸ‰ ì¢…ë¥˜ ë³´ê¸°" src="img/ccs.jpg" border="0" height="50">
-		</h1>
+		
+		<!-- ¼ÒÇü, ÁßÇü, ´ëÇüÀ» ±âÁØÀ¸·Î Â÷·®À» °Ë»öÇØ¼­ °á°ú¸¦ È­¸é¿¡ ³ªÅ¸³»±â À§ÇÑ ºÎºÐ -->
+		<!-- <Â÷·® Á¾·ù º¸±â>  -->
+		<h1><img src="img/ccs.jpg" border="0" height="50"> </h1>
+		
+		
 		<form action="CarcategoryController.do" method="post">
 			<table width="400" border="0">
 				<tr align="center">
-					<td width="100">ì°¨ëŸ‰ ì¢…ë¥˜</td>
-					<td width="100" height="50"><select name="carcategory">
-							<option value="Small">ì†Œí˜•</option>
-							<option value="Mid">ì¤‘í˜•</option>
-							<option value="Big">ëŒ€í˜•</option>
-					</select>
+					<td width="100">Â÷·® Á¾·ù</td>
+					<td width="100" height="50">
+						<select name="carcategory">
+							<option value="Small">¼ÒÇü</option>
+							<option value="Mid">ÁßÇü</option>
+							<option value="Big">´ëÇü</option>
+						</select>
 					</td>
-					<td align="center"><input type="submit" value="ê²€ìƒ‰"></td>
-					<td align="center"><input type="button" value="ì „ì²´ê²€ìƒ‰"
-						onclick="location.href='CarListController.do'"></td>
+					<td align="center">
+						<input type="submit" value="°Ë»ö">
+					</td>
+					<td align="center">
+						<input type="button" value="ÀüÃ¼°Ë»ö" 
+						       onclick="location.href='CarListController.do'">
+					</td>
 				</tr>
 			</table>
 		</form>

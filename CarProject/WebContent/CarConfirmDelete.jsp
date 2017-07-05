@@ -1,38 +1,54 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
-
 <body>
 <center>
-	<h1>ì°¨ëŸ‰ ì£¼ë¬¸ ì •ë³´ ì‚­ì œ</h1>
+	<h1>Â÷·® ÁÖ¹® Á¤º¸ »èÁ¦</h1>
 	<form action="CarConfirmDeleteController.do" method="post">
-	<p/>
-	<table width="1000" border="0">
-		<c:set var="result" value="${requestScope.result}"/>
-		<c:if test="${result==null}">
-			<c:set var="result" value="${1}" />
-		</c:if>
-		<c:if test="${result==0}">
-			<script>
-				alert("ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤.");
-			</script>
-		</c:if>
-		<tr align="center">
-			<td align="center"> 
+		<p>
+		<table width="1000" border="0">
+			
+			<c:set var="result" value="${requestScope.result }"/>
+			
+			<c:if test="${result == null }">
+				<c:set var="result" value="${1}"/>
+			</c:if>
+			
+			<c:if test="${result == 0 }">
+				<script>
+					alert("ºñ¹Ð¹øÈ£°¡ Æ²¸³´Ï´Ù. ¿¹¾àÃë¼Ò ½ÇÆÐ !");
+				</script>
+			</c:if>
+			
+	
+		
+			<tr align="center">
+				<td align="center">
 				<input type="hidden" value="${param.orderid}" name="orderid">
-				ë¹„ë°€ë²ˆí˜¸ ìž…ë ¥ : 
+				ºñ¹Ð¹øÈ£ ÀÔ·Â : 
 				<input type="password" name="memberpass">&nbsp;&nbsp;&nbsp;
-				<input type="submit" value="ì˜ˆì•½ì·¨ì†Œ">
-			</td>
-		</tr>
-	</table>
+				<input type="submit" value="»èÁ¦ ÇÏ±â(¿¹¾à Ãë¼Ò)">
+				</td>
+			</tr>
+		</table>
 	</form>
-	</center>
+</center>
+
+
 </body>
 </html>
+
+
+
+
+
+
+
